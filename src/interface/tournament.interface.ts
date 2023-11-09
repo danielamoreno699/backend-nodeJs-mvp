@@ -7,5 +7,4 @@ export interface Tournament {
     isDoubles: boolean;
     players: Player[];
     date: Date;
-    createdAt: Date;
 }
