@@ -5,5 +5,4 @@ export interface User extends Auth {
     name: string;
     last_name: string;
     role: string;
-    createdAt: Date;
 }
