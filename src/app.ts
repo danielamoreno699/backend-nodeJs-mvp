@@ -16,10 +16,10 @@ app.use(express.json())
 
 // routes
 
-app.get('/api/users', (req, res) => {
+app.get('/users', (req, res) => {
     res.json({ message: 'GET request to /api/users' });
 });
-app.post('/api/users', (req, res) => {
+app.post('/users', (req, res) => {
     res.json({ message: 'POST request to /api/users' });
 });
 
