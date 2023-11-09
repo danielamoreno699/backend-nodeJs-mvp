@@ -24,7 +24,11 @@ const playerSchema = new Schema <Player>(
         club:{
             type: String,
             required: true
-        }
+        },
+        img:{
+            type: String,
+        
+        },
     }, {
 
         versionKey: false,

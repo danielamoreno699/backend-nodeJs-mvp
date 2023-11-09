@@ -4,8 +4,10 @@ export interface Tournament {
     _id: string;
     name: string;
     location: string;
+    city: string;
+    desc: string;
+    img: string;
     country: string;
-    isDoubles: boolean;
     players: Player[];
     date: Date;
     price: number;

@@ -5,4 +5,5 @@ export interface Player {
     nationality: string;
     age: number;
     club: string;
+    img: string;
 }
