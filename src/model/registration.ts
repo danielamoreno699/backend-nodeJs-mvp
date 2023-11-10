@@ -1,14 +1,14 @@
 import { Schema,model } from "mongoose";
-import {Reservation} from "../interface/reservation.interface";
+import {Registration} from "../interface/registration.interface";
 
-const reservationSchema = new Schema <Reservation>(
+const registrationSchema = new Schema <Registration>(
     
     {
         tournament_reservation: { 
             type: Schema.Types.ObjectId, 
             ref: "Tournament" 
         },
-        user_reservation: { 
+        user_registration: { 
             type: Schema.Types.ObjectId, 
             ref: "User" 
         },
@@ -24,5 +24,5 @@ const reservationSchema = new Schema <Reservation>(
     }
 )
 
-const reservationModel = model<Reservation>("Reservation", reservationSchema);
-export default reservationModel;
+const registrationModel = model<Registration>("Registration", registrationSchema);
+export default registrationModel;

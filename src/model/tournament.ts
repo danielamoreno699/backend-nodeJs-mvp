@@ -25,11 +25,6 @@ const tournamentSchema = new Schema <Tournament>(
             required: true
         },
 
-        players:[{
-            type: Schema.Types.ObjectId,
-            ref: "Player"
-        }],
-
         date:{
             type: Date,
             required: true

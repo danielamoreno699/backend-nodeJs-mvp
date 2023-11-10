@@ -1,4 +1,4 @@
-import { Player} from './player.interface';
+
 
 export interface Tournament {
     _id: string;
@@ -8,7 +8,6 @@ export interface Tournament {
     desc: string;
     img: string;
     country: string;
-    players: Player[];
     date: Date;
     price: number;
 }
