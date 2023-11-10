@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import db from './config/mongo';
 
+
 const PORT = process.env.PORT || 3001;
 
 const app = express()
@@ -15,13 +16,7 @@ app.use(cors({
 app.use(express.json())
 
 // routes
-
-app.get('/users', (req, res) => {
-    res.json({ message: 'GET request to /api/users' });
-});
-app.post('/users', (req, res) => {
-    res.json({ message: 'POST request to /api/users' });
-});
+app.use
 
 
 // listen to the server
