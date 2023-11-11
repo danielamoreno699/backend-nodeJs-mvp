@@ -12,6 +12,22 @@ const registrationSchema = new Schema <Registration>(
             type: Schema.Types.ObjectId, 
             ref: "User" 
         },
+        league:{
+            type: String,
+            required: true
+        },
+        club:{
+            type: String,
+            required: true
+        },
+        category:{
+            type: String,
+            required: true
+        },
+        practice_location:{
+            type: String,
+            required: true
+        },
     }, {
 
         versionKey: false,
