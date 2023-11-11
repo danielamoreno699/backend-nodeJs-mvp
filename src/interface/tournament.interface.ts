@@ -9,5 +9,5 @@ export interface Tournament {
     img: string;
     country: string;
     date: Date;
-    price: number;
+    capacity_available: number;
 }

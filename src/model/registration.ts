@@ -12,10 +12,6 @@ const registrationSchema = new Schema <Registration>(
             type: Schema.Types.ObjectId, 
             ref: "User" 
         },
-        number_of_tickets: { 
-            type: Number, 
-            required: true 
-        },
     }, {
 
         versionKey: false,

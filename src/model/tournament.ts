@@ -29,7 +29,7 @@ const tournamentSchema = new Schema <Tournament>(
             type: Date,
             required: true
         },
-        price:{
+        capacity_available:{
             type: Number,
             required: true
         },
