@@ -1,7 +1,7 @@
 
 
 export interface Tournament {
-    _id: string;
+
     name: string;
     location: string;
     city: string;
