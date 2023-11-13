@@ -1,12 +1,13 @@
 import {Router} from 'express';
+import { getRegistrationsCtrl, getRegistrationCtrl, createRegistrationCtrl, updateRegistrationCtrl, deleteRegistrationCtrl } from '../controllers/registration';
 // router for user registration to a tournament
 
 const router = Router();
 
-router.get("/")
-router.get("/:id")
-router.post("/")
-router.put("/:id")
-router.delete("/:id")
+router.get("/", getRegistrationsCtrl)
+router.get("/:id", getRegistrationsCtrl)
+router.post("/" , createRegistrationCtrl)
+router.put("/:id" , updateRegistrationCtrl)
+router.delete("/:id" , deleteRegistrationCtrl)
 
 export default router;
