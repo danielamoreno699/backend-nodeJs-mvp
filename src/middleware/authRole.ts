@@ -10,4 +10,4 @@ const authRole = (role: string) => {
     };
 };
 
-export { authRole };
+export default authRole;
