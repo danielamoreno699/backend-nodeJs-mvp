@@ -7,7 +7,7 @@ import userRoutes from './user';
 const router = Router();
 
 router.use("/registration", registrationRouter);
-router.use('/auth', authRoutes);
+router.use('/', authRoutes);
 router.use('/tournament', tournamentRoutes);
 router.use('/user', userRoutes);
 
