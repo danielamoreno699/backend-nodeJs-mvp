@@ -1,4 +1,4 @@
-const ROLES_LIST = {
-    "Admin" : 5150,
-    "User" : 2000,
+const ROLE  = {
+    ADMIN: 'admin',
+    USER: 'user'
 }

@@ -11,11 +11,20 @@ const getTournaments = async()=> {  // admin can get list of users
 
 }
 
+
+const getTournament = async(id: string)=> {  // admin can get list of users
+    const responseGetTournament = await tournamentModel.findById({_id: id});
+    return responseGetTournament;
+    
+    }
+
 const createTournament = async(tournament: Tournament)=> {  // admin can create a tournament
     const responseCreateTournament = await tournamentModel.create(tournament);
     return responseCreateTournament;
     
     }
+
+
 
 const updateTournament = async(id: string, data: Tournament) => { // admin can get access to tournament details and modify them
     const updateTournament = await tournamentModel.findByIdAndUpdate({_id: id}, data, {new: true});
@@ -27,4 +36,4 @@ const deleteTournament = async(id: string) => { // admin can delete a tournament
     return deleteTournament;
 }
 
-export {getTournaments, createTournament, updateTournament, deleteTournament};
+export {getTournaments, createTournament, updateTournament, deleteTournament, getTournament};
