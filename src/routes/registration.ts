@@ -1,5 +1,5 @@
 import {Router} from 'express';
-
+// router for user registration to a tournament
 
 const router = Router();
 
@@ -9,4 +9,4 @@ router.post("/")
 router.put("/:id")
 router.delete("/:id")
 
-export {router};
+export default router;

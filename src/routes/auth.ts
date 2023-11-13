@@ -8,4 +8,4 @@ router.post("/register")
 router.post("/login")
 
 
-export { router};
+export default router;
