@@ -1,8 +1,8 @@
 import {Request, Response} from 'express';
 import { handleHttp } from '../utils/error.hanlde';
-import { getUsers, updateUser } from '../services/user';
+import { getUsers, updateUser, getUser } from '../services/user';
 
-const getUsersController = async(req: Request, res: Response) => {
+const getUsersCtrl = async(req: Request, res: Response) => {
 
     try {
        const responseGetUsers = await getUsers();
@@ -12,3 +12,32 @@ const getUsersController = async(req: Request, res: Response) => {
     }
 
 }
+
+
+const getUserCtrl = async({params}: Request, res: Response) => {
+
+    try {
+       const {id} = params;
+        const responseGetUser = await getUser(id);
+        const data = responseGetUser ? responseGetUser : 'user not found';
+       res.send(data);
+    } catch (error) {
+        handleHttp(res, 'error getting user');
+    }
+
+}
+
+
+const updateUserCtrl = async({params, body}: Request, res: Response) => {
+
+    try {
+       const {id} = params;
+       const responseUpdateUser = await updateUser(id, body);
+       res.send(responseUpdateUser);
+    } catch (error) {
+        handleHttp(res, 'error updating user');
+    }
+
+}
+
+export {getUsersCtrl, updateUserCtrl, getUserCtrl};
