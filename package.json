@@ -7,7 +7,6 @@
     "seed": "ts-node ./src/seed.ts",
     "build": "tsc",
     "start": "node ./dist/app.js"
-
   },
   "repository": {
     "type": "git",
@@ -29,6 +28,7 @@
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.16",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.21",
