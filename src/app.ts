@@ -16,7 +16,7 @@ app.use(cors({
 app.use(express.json())
 
 // routes
-
+//app.use('/api', routes);
 
 
 // listen to the server
