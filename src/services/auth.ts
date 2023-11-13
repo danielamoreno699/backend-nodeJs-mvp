@@ -4,7 +4,7 @@ import userModel from "../model/user";
 import { encrypt, decrypt} from "../utils/bcrypt.handler";
 import { createToken } from "../utils/jwt.handle";
 
-const registerNewUser = async ({name, last_name, email, password } : User) => {
+const registerNewUser = async ({name, last_name, email, password, role} : User) => {
     // check if an user already exists
 
     const checkUser = await userModel.findOne({ email});
@@ -13,15 +13,17 @@ const registerNewUser = async ({name, last_name, email, password } : User) => {
     }
     const hashedPassword = await encrypt(password);
 
+    let userRole = role || "user";
+   
     const newUser = new userModel({
         name,
         last_name,
         email,
         password: hashedPassword,
-        role: "user"
+        role: userRole
     });
 
-    return newUser.save();
+   await newUser.save();
 }
 
 

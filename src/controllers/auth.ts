@@ -7,6 +7,11 @@ const registerNewUserCtrl = async({body}: Request, res: Response) => {
 
     try {
        const responseRegisterNewUser = await registerNewUser(body);
+       res.status(201).json({
+              message: 'user created successfully',
+              data: responseRegisterNewUser
+         
+       })
        res.send(responseRegisterNewUser);
     } catch (error) {
         res.send(error);
@@ -24,6 +29,10 @@ const loginUserCtrl = async({body}: Request, res: Response) => {
        res.status(401)
         res.send(resUser);
    }else {
+         res.status(200).json({
+                message: 'user logged in successfully',
+                data: resUser
+         })
          res.send(resUser);
    }
 

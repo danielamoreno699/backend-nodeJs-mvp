@@ -1,4 +1,4 @@
-import {Request, Response} from 'express';
+
 import  registrationModel from '../model/user';
 import  {Registration} from '../interface/registration.interface';
 
@@ -6,12 +6,14 @@ import  {Registration} from '../interface/registration.interface';
 
 const createRegistration = async(registration: Registration)=> {  // user can create a registration
     const responseCreateRegistration = await registrationModel.create(registration);
-    return responseCreateRegistration;
+    await responseCreateRegistration.save();
+    //return responseCreateRegistration;
     
     }
 
 const getRegistrations = async()=> {  // user can get list of registrations
     const responseGetRegistrations = await registrationModel.find({});
+    
     return responseGetRegistrations;
     
     }
