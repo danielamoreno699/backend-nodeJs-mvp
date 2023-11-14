@@ -29,8 +29,11 @@ const getTournamentCtrl = async({params}: Request, res: Response) => {
 const createTournamentCtrl = async({body}: Request, res: Response) => {
 
     try {
-       const responseCreateTournament = await createTournament(body);
-       res.send(responseCreateTournament);
+        const responseCreateTournament = await createTournament(body);
+        res.status(201).json({
+            message: 'Tournament created successfully',
+            data: responseCreateTournament,
+        });
     } catch (error) {
         handleHttp(res, 'error creating tournament');
     }

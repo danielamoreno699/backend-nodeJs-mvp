@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
-import  tournamentModel from '../model/user';
+
 import  {Tournament} from '../interface/tournament.interface';
+import tournamentModel from '../model/tournament';
 
 // only for admin operations
 
