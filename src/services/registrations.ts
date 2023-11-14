@@ -4,10 +4,20 @@ import  {Registration} from '../interface/registration.interface';
 
 // operations for regular users 
 
-const createRegistration = async(registration: Registration)=> {  // user can create a registration
-    const responseCreateRegistration = await registrationModel.create(registration);
-    await responseCreateRegistration.save();
-    //return responseCreateRegistration;
+const createRegistration = async(tournamentId:string, userId: string, registration: Partial<Registration>)=> {
+
+    const registrationData = {
+        tournament_reservation: tournamentId,
+        user_registration: userId,
+        registration
+    };
+    
+    try {
+        const responseCreateRegistration = await registrationModel.create(registrationData);
+        await responseCreateRegistration.save();
+    } catch (error) {
+        throw new Error('error creating registration');
+    }
     
     }
 

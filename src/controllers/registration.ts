@@ -27,16 +27,29 @@ const getRegistrationCtrl = async({params}: Request, res: Response) => {
 }
 
 
-const createRegistrationCtrl = async({body}: Request, res: Response) => {
-
+const createRegistrationCtrl = async (req: Request, res: Response) => {
     try {
-       const responseCreateRegistration = await createRegistration(body);
-       res.send(responseCreateRegistration);
-    } catch (error) {
-        handleHttp(res, 'error creating registration');
-    }
+        // Extract data from the request body
+        const { tournamentId, userId, league, club, category, practice_location } = req.body;
 
-}
+        // Call the createRegistration function with the required arguments
+        const responseCreateRegistration = await createRegistration(tournamentId, userId, {
+            league,
+            club,
+            category,
+            practice_location,
+        });
+
+        // Send the response
+        res.status(201).json({
+            message: 'Registration created successfully',
+            data: responseCreateRegistration,
+        });
+    } catch (error) {
+        // Handle errors
+        handleHttp(res, 'Error creating registration');
+    }
+};
 
 const updateRegistrationCtrl = async({params, body}: Request, res: Response) => {
     
