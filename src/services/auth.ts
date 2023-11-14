@@ -29,7 +29,7 @@ const registerNewUser = async ({name, last_name, email, password, role} : User) 
 }
 
 
-const loginUser = async ({email, password}: User) => {
+const loginUser = async ({email, password}: Auth) => {
     const checkEmail = await userModel.findOne({email});
     if (!checkEmail) {
         throw new Error("User does not exist");
@@ -42,6 +42,7 @@ const loginUser = async ({email, password}: User) => {
     }
 
     const token = createToken({ email: checkEmail.email, role: checkEmail.role });
+    console.log(token)
     return token;
   
 
