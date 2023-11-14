@@ -1,10 +1,12 @@
 import {sign, verify, JwtPayload} from 'jsonwebtoken';
+import { User } from '../interface/user.interface';
 const JWT_SECRET = process.env.JWT_SECRET || "token.02020202"
 
-const createToken = (id: string) => {
-    const token = sign({id}, JWT_SECRET, {expiresIn: '5d'});
+const createToken = ({ email, role }: User): string => {
+    const payload = { email, role };
+    const token = sign(payload, process.env.JWT_SECRET || "default_secret", { expiresIn: '5d' });
     return token;
-}
+};
 
 const verifyToken = (token: string): JwtPayload => {
 
