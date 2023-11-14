@@ -9,7 +9,7 @@ const createRegistration = async(tournamentId:string, userId: string, registrati
     const registrationData = {
         tournament_reservation: tournamentId,
         user_registration: userId,
-        registration
+        ...registration
     };
     
     try {

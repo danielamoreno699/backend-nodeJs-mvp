@@ -36,7 +36,7 @@ const checkJwt = (req: RequestExt, res: Response, next: NextFunction) => {
 const authRole = (role: string) => {
     return (req: RequestExt, res: Response, next: NextFunction) => {
         if (req.user?.role !== role) {
-            res.status(401).send("You are not authorized");
+            res.status(401).send("You are not authorized as Admin");
         } else {
             next();
         }

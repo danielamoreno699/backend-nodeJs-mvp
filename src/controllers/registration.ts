@@ -47,6 +47,7 @@ const createRegistrationCtrl = async (req: Request, res: Response) => {
         });
     } catch (error) {
         // Handle errors
+        console.log(error)
         handleHttp(res, 'Error creating registration');
     }
 };
