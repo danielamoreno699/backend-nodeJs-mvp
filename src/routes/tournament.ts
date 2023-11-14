@@ -3,11 +3,12 @@ import { getTournamentsCtrl, getTournamentCtrl, createTournamentCtrl, updateTour
 import ROLES from '../config/roles_list';
 import authRole from '../middleware/authRole';
 
+
 const router = Router();
 
 router
-  .get("/", authRole(ROLES.ADMIN), getTournamentsCtrl)
-  .get("/:id", authRole(ROLES.ADMIN), getTournamentCtrl)
+  .get("/", getTournamentsCtrl)
+  .get("/:id", getTournamentCtrl)
   .post("/", authRole(ROLES.ADMIN), createTournamentCtrl)
   .put("/:id", authRole(ROLES.ADMIN), updateTournamentCtrl)
   .delete("/:id", authRole(ROLES.ADMIN), deleteTournamentCtrl);

@@ -25,6 +25,10 @@ const userSchema = new Schema <User>(
             type: String, 
             required: true 
         },
+        img: { 
+            type: String, 
+            required: false 
+        }
     },
     {
         versionKey: false,

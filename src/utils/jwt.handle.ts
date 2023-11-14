@@ -2,7 +2,7 @@ import {sign, verify} from 'jsonwebtoken';
 const JWT_SECRET = process.env.JWT_SECRET || "token.02020202"
 
 const createToken = (id: string) => {
-    const token = sign({id}, JWT_SECRET, {expiresIn: '1d'});
+    const token = sign({id}, JWT_SECRET, {expiresIn: '5d'});
     return token;
 }
 
