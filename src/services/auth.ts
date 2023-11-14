@@ -11,23 +11,25 @@ const registerNewUser = async ({name, last_name, email, password, role} : User) 
     if (checkUser) {
         throw new Error("User already exists");
     }
-    const hashedPassword = await encrypt(password);
+        const hashedPassword = await encrypt(password);
 
-    let userRole = role || "user";
-   
-    const newUser = new userModel({
-        name,
-        last_name,
-        email,
-        password: hashedPassword,
-        role: userRole
-    });
+        let userRole = role || "user";
+       
+        const newUser = new userModel({
+            name,
+            last_name,
+            email,
+            password: hashedPassword,
+            role: userRole
+        });
 
-   await newUser.save();
+       await newUser.save();
+       const token = createToken({ email: newUser.email, role: newUser.role });
+        return token;
 }
 
 
-const loginUser = async ({email, password}: Auth) => {
+const loginUser = async ({email, password}: User) => {
     const checkEmail = await userModel.findOne({email});
     if (!checkEmail) {
         throw new Error("User does not exist");
@@ -39,9 +41,9 @@ const loginUser = async ({email, password}: Auth) => {
         throw new Error("Password does not match");
     }
 
-    const token = createToken(checkEmail.email);
-
+    const token = createToken({ email: checkEmail.email, role: checkEmail.role });
     return token;
+  
 
 }
 
