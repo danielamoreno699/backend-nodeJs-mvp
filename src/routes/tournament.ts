@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { getTournamentsCtrl, getTournamentCtrl, createTournamentCtrl, updateTournamentCtrl, deleteTournamentCtrl } from '../controllers/tournaments';
 import ROLES from '../config/roles_list';
-import authRole from '../middleware/authRole';
+import { authRole } from '../middleware/session';
+
 
 
 const router = Router();

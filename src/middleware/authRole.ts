@@ -1,13 +1,19 @@
-import { NextFunction, Request, Response } from "express";
+// import { NextFunction, Request, Response } from "express";
 
-const authRole = (role: string) => {
-    return (req: Request, res: Response, next: NextFunction) => {
-        if (req.body.role !== role) {
-        res.status(401)
-        return res.send("you are not authorized");
-        }
-        next();
-    };
-};
+// interface RequestExt extends Request {
+//     user?: {
+//         role?: string;
+//     };
+// }
 
-export default authRole;
+// const authRole = (role: string) => {
+//     return (req: RequestExt, res: Response, next: NextFunction) => {
+//         if (req.user?.role !== role) {
+//             res.status(401).send("You are not authorized");
+//         } else {
+//             next();
+//         }
+//     };
+// };
+
+// export default authRole;
