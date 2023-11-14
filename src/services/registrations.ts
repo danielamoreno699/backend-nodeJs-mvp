@@ -1,14 +1,15 @@
 
-import  registrationModel from '../model/user';
+
 import  {Registration} from '../interface/registration.interface';
+import registrationModel from '../model/registration';
 
 // operations for regular users 
 
 const createRegistration = async(tournamentId:string, userId: string, registration: Partial<Registration>)=> {
 
     const registrationData = {
-        tournament_reservation: tournamentId,
-        user_registration: userId,
+        tournamentId: tournamentId,
+        userId: userId,
         ...registration
     };
     

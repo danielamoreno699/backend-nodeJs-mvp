@@ -4,11 +4,11 @@ import {Registration} from "../interface/registration.interface";
 const registrationSchema = new Schema <Registration>(
     
     {
-        tournament_reservation: { 
+        tournamentId: { 
             type: Schema.Types.ObjectId, 
             ref: "Tournament" 
         },
-        user_registration: { 
+        userId: { 
             type: Schema.Types.ObjectId, 
             ref: "User" 
         },

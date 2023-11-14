@@ -4,8 +4,8 @@ import { User } from "./user.interface";
 export interface Registration {
 
 
-    tournament_reservation: Tournament;
-    user_registration: User;
+    tournamentId: Tournament;
+    userId: User;
     league: string;
     club: string;
     category: string;
