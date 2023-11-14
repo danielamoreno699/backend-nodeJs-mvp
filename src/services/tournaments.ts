@@ -27,10 +27,21 @@ const createTournament = async(tournament: Tournament)=> {  // admin can create 
 
 
 
-const updateTournament = async(id: string, data: Tournament) => { // admin can get access to tournament details and modify them
-    const updateTournament = await tournamentModel.findByIdAndUpdate({_id: id}, data, {new: true});
-    return updateTournament;
-}
+    const updateTournament = async (id: string, data: Tournament) => {
+
+        const tournament = await tournamentModel.findById(id);
+
+        if (!tournament) {
+            throw new Error('Tournament not found');
+        }
+
+        const updateTournament = await tournamentModel.findOneAndUpdate(
+            {_id: id},
+            { $set: data }, 
+            { new: true } 
+        );
+        return updateTournament;
+    };
 
 const deleteTournament = async(id: string) => { // admin can delete a tournament
     const deleteTournament = await tournamentModel.findByIdAndDelete({_id: id});

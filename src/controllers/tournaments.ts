@@ -40,17 +40,18 @@ const createTournamentCtrl = async({body}: Request, res: Response) => {
 
 }
 
-const updateTournamentCtrl = async({params, body}: Request, res: Response) => {
-    
-        try {
+const updateTournamentCtrl = async ({params,body}: Request, res: Response) => {
+    try {
         const {id} = params;
         const responseUpdateTournament = await updateTournament(id, body);
         res.send(responseUpdateTournament);
-        } catch (error) {
-            handleHttp(res, 'error updating tournament');
-        }
-    
+    } catch (error) {
+        console.log(error);
+        handleHttp(res, 'error update item')
     }
+    
+};
+
 
 const deleteTournamentCtrl = async({params}: Request, res: Response) => {
         
