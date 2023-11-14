@@ -40,7 +40,11 @@ const getUser = async (id: string) => {
 };
 
 const updateUser = async(id: string, data: User) => { // admin can get access to user details and modify them
-    const responseUpdateUser = await userModel.findOneAndUpdate({_id: id});
+    const responseUpdateUser = await userModel.findOneAndUpdate(
+        { _id: id },
+        { $set: data }, 
+        { new: true } 
+    );
     return responseUpdateUser;
 }
 

@@ -7,7 +7,7 @@ const getUsersCtrl = async(req: Request, res: Response) => {
     try {
        const responseGetUsers = await getUsers();
 
-       
+
        res.send(responseGetUsers);
     } catch (error) {
         handleHttp(res, 'error getting users');
@@ -30,15 +30,35 @@ const getUserCtrl = async({params}: Request, res: Response) => {
 }
 
 
-const updateUserCtrl = async({params, body}: Request, res: Response) => {
-
+const updateUserCtrl = async(req: Request, res: Response) => {
+    const userId = req.params.id;
+    const { name, last_name } = req.body;
     try {
-       const {id} = params;
-       const responseUpdateUser = await updateUser(id, body);
-       res.send(responseUpdateUser);
+        
+        const updatedUser = await updateUser(userId, {
+            name, last_name,
+            img: '',
+            role: '',
+            email: '',
+            password: ''
+        });
+
+        res.status(200).json({
+            message: 'User updated successfully',
+            data: updatedUser,
+        });
     } catch (error) {
-        handleHttp(res, 'error updating user');
+        res.status(500).json({
+            error: 'Internal Server Error',
+        });
     }
+    // try {
+    //    const {id} = params;
+    //    const responseUpdateUser = await updateUser(id, body);
+    //    res.send(responseUpdateUser);
+    // } catch (error) {
+    //     handleHttp(res, 'error updating user');
+    // }
 
 }
 
