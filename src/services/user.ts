@@ -39,7 +39,7 @@ const getUser = async (id: string) => {
     return formattedUser;
 };
 
-const updateUser = async(id: string, data: User) => { // admin can get access to user details and modify them
+const updateUser = async(id: string, data: Partial<User>) => { // admin can get access to user details and modify them
     const responseUpdateUser = await userModel.findOneAndUpdate(
         { _id: id },
         { $set: data }, 

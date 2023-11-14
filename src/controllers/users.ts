@@ -36,11 +36,9 @@ const updateUserCtrl = async(req: Request, res: Response) => {
     try {
         
         const updatedUser = await updateUser(userId, {
-            name, last_name,
-            img: '',
-            role: '',
-            email: '',
-            password: ''
+            name, 
+            last_name,
+
         });
 
         res.status(200).json({
@@ -48,17 +46,8 @@ const updateUserCtrl = async(req: Request, res: Response) => {
             data: updatedUser,
         });
     } catch (error) {
-        res.status(500).json({
-            error: 'Internal Server Error',
-        });
+        handleHttp(res, 'error updating user');
     }
-    // try {
-    //    const {id} = params;
-    //    const responseUpdateUser = await updateUser(id, body);
-    //    res.send(responseUpdateUser);
-    // } catch (error) {
-    //     handleHttp(res, 'error updating user');
-    // }
 
 }
 
