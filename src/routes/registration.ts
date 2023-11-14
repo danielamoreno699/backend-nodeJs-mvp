@@ -5,7 +5,7 @@ import { getRegistrationsCtrl, getRegistrationCtrl, createRegistrationCtrl, upda
 const router = Router();
 
 router.get("/", getRegistrationsCtrl)
-router.get("/:id", getRegistrationsCtrl)
+router.get("/:id", getRegistrationCtrl)
 router.post("/" , createRegistrationCtrl)
 router.put("/:id" , updateRegistrationCtrl)
 router.delete("/:id" , deleteRegistrationCtrl)
