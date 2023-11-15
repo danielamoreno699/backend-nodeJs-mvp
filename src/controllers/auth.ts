@@ -11,11 +11,18 @@ const registerNewUserCtrl = async ({ body }: Request, res: Response) => {
             data: responseRegisterNewUser
         });
     } catch (error) {
-        console.log(error)
-        res.status(500).json({
-            message: 'Error creating user',
-            error
-        });
+        if((error as Error).message === "User already exists") {
+            res.status(409).json({
+                message: 'User already exists',
+         
+            });
+        }else{
+          
+            res.status(500).json({
+                message: 'Error creating user',
+            
+            });
+        }
     }
 };
 
