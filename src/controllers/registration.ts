@@ -29,10 +29,10 @@ const getRegistrationCtrl = async({params}: Request, res: Response) => {
 
 const createRegistrationCtrl = async (req: Request, res: Response) => {
     try {
-        // Extract data from the request body
+      
         const { tournamentId, userId, league, club, category, practice_location } = req.body;
 
-        // Call the createRegistration function with the required arguments
+        
         const responseCreateRegistration = await createRegistration(tournamentId, userId, {
             league,
             club,
@@ -40,13 +40,13 @@ const createRegistrationCtrl = async (req: Request, res: Response) => {
             practice_location,
         });
 
-        // Send the response
+        
         res.status(201).json({
             message: 'Registration created successfully',
             data: responseCreateRegistration,
         });
     } catch (error) {
-        // Handle errors
+       
         console.log(error)
         handleHttp(res, 'Error creating registration');
     }
