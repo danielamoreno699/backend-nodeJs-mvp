@@ -1,9 +1,14 @@
 import {Request, Response} from 'express';
 import { handleHttp } from '../utils/error.hanlde';
 import { getRegistrations, getRegistration, updateRegistration, deleteRegistration, createRegistration, getRegistrationsUser } from '../services/registrations';
-import { User } from '../interface/user.interface';
+import { Registration } from '../interface/registration.interface';
 
+interface RequestReg extends Request {
+    User?: {
+        _id?: string;
+    };
 
+}
 
 const getRegistrationsCtrl = async(req: Request, res: Response) => {
 
@@ -16,14 +21,16 @@ const getRegistrationsCtrl = async(req: Request, res: Response) => {
 
 }
 
-const getRegistrationsUserCtrl = async(req: Request, res: Response) => {
+const getRegistrationsUserCtrl = async(req: RequestReg, res: Response) => {
         try {
-                const userId = req.user._id;
-
+            const userId = req.User?._id;
+                console.log('userId:', userId);
 
                 const userRegistrations = await getRegistrationsUser(userId);
+                console.log('userRegistrations:', userRegistrations);
                 res.status(200).json({
                     message: 'User registrations retrieved successfully',
+                   
                     data: userRegistrations,
                 });
         } catch (error) {

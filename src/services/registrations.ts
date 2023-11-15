@@ -28,7 +28,7 @@ const getRegistrations = async()=> {  // admin  can get all list of registration
     
     }
 
-const getRegistrationsUser = async(userId: string)=> {  // user can get list of registrations that he created
+const getRegistrationsUser = async(userId?: string)=> {  // user can get list of registrations that he created
     const responseGetRegistrations = await registrationModel.find({userId}) 
     return responseGetRegistrations;
     
