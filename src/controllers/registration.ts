@@ -1,6 +1,9 @@
 import {Request, Response} from 'express';
 import { handleHttp } from '../utils/error.hanlde';
-import { getRegistrations, getRegistration, updateRegistration, deleteRegistration, createRegistration } from '../services/registrations';
+import { getRegistrations, getRegistration, updateRegistration, deleteRegistration, createRegistration, getRegistrationsUser } from '../services/registrations';
+import { User } from '../interface/user.interface';
+
+
 
 const getRegistrationsCtrl = async(req: Request, res: Response) => {
 
@@ -13,6 +16,24 @@ const getRegistrationsCtrl = async(req: Request, res: Response) => {
 
 }
 
+const getRegistrationsUserCtrl = async(req: Request, res: Response) => {
+        try {
+                const userId = req.user._id;
+
+
+                const userRegistrations = await getRegistrationsUser(userId);
+                res.status(200).json({
+                    message: 'User registrations retrieved successfully',
+                    data: userRegistrations,
+                });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: 'Error getting user registrations' });
+        }
+     }
+
+
+
 const getRegistrationCtrl = async({params}: Request, res: Response) => {
 
     try {
@@ -21,6 +42,7 @@ const getRegistrationCtrl = async({params}: Request, res: Response) => {
         const data = responseGetRegistration ? responseGetRegistration : 'registration not found';
        res.send(data);
     } catch (error) {
+        console.log(error)
         handleHttp(res, 'error getting registration');
     }
 
@@ -76,4 +98,4 @@ const deleteRegistrationCtrl = async({params}: Request, res: Response) => {
         
         }
 
-export {getRegistrationsCtrl, updateRegistrationCtrl, getRegistrationCtrl, createRegistrationCtrl, deleteRegistrationCtrl};
+export {getRegistrationsCtrl, updateRegistrationCtrl, getRegistrationCtrl, createRegistrationCtrl, deleteRegistrationCtrl, getRegistrationsUserCtrl};

@@ -22,15 +22,20 @@ const createRegistration = async(tournamentId:string, userId: string, registrati
     
     }
 
-const getRegistrations = async()=> {  // user can get list of registrations
-    const responseGetRegistrations = await registrationModel.find({});
+const getRegistrations = async()=> {  // admin  can get all list of registrations
+    const responseGetRegistrations = await registrationModel.find({}) 
+    return responseGetRegistrations;
     
+    }
+
+const getRegistrationsUser = async(userId: string)=> {  // user can get list of registrations that he created
+    const responseGetRegistrations = await registrationModel.find({userId}) 
     return responseGetRegistrations;
     
     }
 
 
-const getRegistration = async(id: string)=> {  // user can get list of registrations
+const getRegistration = async(id: string)=> {  // user can get a single registration
     const responseGetRegistration = await registrationModel.findById({_id: id});
     return responseGetRegistration;
     
@@ -47,4 +52,4 @@ const deleteRegistration = async(id: string) => { // user can delete a registrat
     return deleteRegistration;
 }
 
-export {createRegistration, getRegistrations, updateRegistration, deleteRegistration, getRegistration};
+export {createRegistration, getRegistrations, updateRegistration, deleteRegistration, getRegistration, getRegistrationsUser};
