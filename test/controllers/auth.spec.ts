@@ -12,7 +12,7 @@ const app: Application = express();
 app.use(express.json());
 app.post('/register', registerNewUserCtrl);
 
-describe('Auth controller test', () => {
+describe('Auth registerNewUserCtrl test', () => {
   const userTest = {
     name: 'test',
     last_name: 'test',
@@ -25,17 +25,13 @@ describe('Auth controller test', () => {
     const mockRegisterNewUser = jest.fn().mockResolvedValue('mockUserId');
     (require('../../src/services/auth') as any).registerNewUser = mockRegisterNewUser;
 
-  
     const response = await request(app)
       .post('/register')
       .send(userTest);
 
- 
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('message', 'user created successfully');
     expect(response.body).toHaveProperty('data', 'mockUserId'); 
-
-
     expect(mockRegisterNewUser).toHaveBeenCalledWith(userTest);
   });
 
