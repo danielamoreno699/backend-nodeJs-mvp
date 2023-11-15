@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { registerNewUser, loginUser } from '../services/auth';
+import { handleHttp } from '../utils/error.hanlde';
 
 // create users through authentication
 
@@ -17,11 +18,7 @@ const registerNewUserCtrl = async ({ body }: Request, res: Response) => {
          
             });
         }else{
-          
-            res.status(500).json({
-                message: 'Error creating user',
-            
-            });
+            handleHttp(res, 'Error creating user');
         }
     }
 };
@@ -45,11 +42,8 @@ const loginUserCtrl = async ({ body }: Request, res: Response) => {
             });
         }
     } catch (error) {
-        console.log(error)
-        res.status(500).json({
-            message: 'Error during authentication',
-            error
-        });
+
+        handleHttp(res, 'Error during authentication');
     }
 };
 
