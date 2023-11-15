@@ -25,8 +25,6 @@ const registerNewUser = async ({ name, last_name, email, password, role} : User)
 
        await newUser.save();
        const token = createToken({ _id: newUser._id.toString(), email: newUser.email, role: newUser.role });
-
-       //const token = createToken({ _id: newUser._id, email: newUser.email, role: newUser.role });
         return token;
 }
 

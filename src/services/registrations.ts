@@ -43,7 +43,16 @@ const getRegistration = async(id: string)=> {  // user can get a single registra
 
 
 const updateRegistration = async(id: string, data: Registration) => { // user can get access to registration details and modify them
-    const updateRegistration = await registrationModel.findByIdAndUpdate({_id: id}, data, {new: true});
+   const registration = await registrationModel.findById(id);
+   if (!registration) {
+       throw new Error('Registration not found');
+   }
+
+    const updateRegistration = await registrationModel.findOneAndUpdate(
+         {_id: id},
+         { $set: data }, 
+         { new: true } 
+    );
     return updateRegistration;
 }
 
