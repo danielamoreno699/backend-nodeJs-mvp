@@ -1,14 +1,10 @@
 import {Request, Response} from 'express';
 import { handleHttp } from '../utils/error.hanlde';
 import { getRegistrations, getRegistration, updateRegistration, deleteRegistration, createRegistration, getRegistrationsUser } from '../services/registrations';
-import { Registration } from '../interface/registration.interface';
+import { RequestExt } from '../middleware/session';
 
-interface RequestReg extends Request {
-    User?: {
-        _id?: string;
-    };
 
-}
+
 
 const getRegistrationsCtrl = async(req: Request, res: Response) => {
 
@@ -21,9 +17,9 @@ const getRegistrationsCtrl = async(req: Request, res: Response) => {
 
 }
 
-const getRegistrationsUserCtrl = async(req: RequestReg, res: Response) => {
+const getRegistrationsUserCtrl = async(req: RequestExt, res: Response) => {
         try {
-            const userId = req.User?._id;
+            const userId = req.user?._id;
                 console.log('userId:', userId);
 
                 const userRegistrations = await getRegistrationsUser(userId);

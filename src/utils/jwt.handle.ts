@@ -1,13 +1,16 @@
 import {sign, verify, JwtPayload} from 'jsonwebtoken';
+import { ObjectId } from 'mongoose';
+import { Schema } from "mongoose";
 const JWT_SECRET = process.env.JWT_SECRET || "token.02020202"
 
 interface TokenPayload {
+    _id: string;
     email: string;
     role: string;
 }
 
-const createToken = ({ email, role }: TokenPayload): string => {
-        const payload = { email, role };
+const createToken = ({ _id,email, role }: TokenPayload): string => {
+        const payload = { _id, email, role };
         const token = sign(payload, process.env.JWT_SECRET || "default_secret", { expiresIn: '5d' });
         return token;
 };

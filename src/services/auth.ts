@@ -4,7 +4,7 @@ import userModel from "../model/user";
 import { encrypt, decrypt} from "../utils/bcrypt.handler";
 import { createToken } from "../utils/jwt.handle";
 
-const registerNewUser = async ({name, last_name, email, password, role} : User) => {
+const registerNewUser = async ({ name, last_name, email, password, role} : User) => {
     // check if an user already exists
 
     const checkUser = await userModel.findOne({ email});
@@ -24,7 +24,9 @@ const registerNewUser = async ({name, last_name, email, password, role} : User) 
         });
 
        await newUser.save();
-       const token = createToken({ email: newUser.email, role: newUser.role });
+       const token = createToken({ _id: newUser._id.toString(), email: newUser.email, role: newUser.role });
+
+       //const token = createToken({ _id: newUser._id, email: newUser.email, role: newUser.role });
         return token;
 }
 
@@ -41,7 +43,7 @@ const loginUser = async ({email, password}: Auth) => {
         throw new Error("Password does not match");
     }
 
-    const token = createToken({ email: checkEmail.email, role: checkEmail.role });
+    const token = createToken({ _id: checkEmail._id.toString(), email: checkEmail.email, role: checkEmail.role });
     console.log(token)
     return token;
   

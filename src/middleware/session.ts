@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt.handle';
  
-interface RequestExt extends Request {
+export interface RequestExt extends Request {
     user?: {
+        _id?: string;
         email?: string;
         role?: string;
     };
@@ -17,14 +18,14 @@ const checkJwt = (req: RequestExt, res: Response, next: NextFunction) => {
         const decodedToken = verifyToken(token);
 
         if (decodedToken) {
-            const { role, email } = decodedToken;
-            req.user = { email, role };
+            const { _id, role, email } = decodedToken;
+            req.user = { _id, email, role };
             next();
-        }else{
+        } else {
             res.status(401);
-            res.send({error: 'you are not authorized'});
+            res.send({ error: 'you are not authorized' });
         }
-    }else{
+    } else {
         res.status(401);
         res.send({error: 'you are not authorized'});
     }

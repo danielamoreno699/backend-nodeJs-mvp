@@ -11,6 +11,7 @@ const registerNewUserCtrl = async ({ body }: Request, res: Response) => {
             data: responseRegisterNewUser
         });
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             message: 'Error creating user',
             error
@@ -37,6 +38,7 @@ const loginUserCtrl = async ({ body }: Request, res: Response) => {
             });
         }
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             message: 'Error during authentication',
             error
