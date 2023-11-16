@@ -78,3 +78,43 @@ describe(' test for getEnrollmentsUserCtrl  function', () => {
 
    
 });
+
+
+describe(' test for getEnrollmentsAdminCtrl  function', () => {
+    it('getEnrollmentsAdminCtrl should return an array of enrollments when status 200', async () => {
+
+        const enrollments = [
+            {
+                tournamentId: '1',
+                userId: '1',
+                league: 'Some League 1',
+                club: 'Club 1',
+                category: 'Category 1',
+                practice_location: 'Location 1',
+              },
+              {
+                tournamentId: '2',
+                userId: '2',
+                league: 'Some League 2',
+                club: 'Club 2',
+                category: 'Category 2',
+                practice_location: 'Location 2',
+              },
+          ];
+
+        const mockGetEnrollmentsAdminCtrl = jest.fn().mockResolvedValue([enrollments[0], enrollments[1]]);
+
+        (require('../../src/services/enrollment') as any).getEnrollments = mockGetEnrollmentsAdminCtrl;
+
+        const response = await request(app)
+        .get('/users')
+        .set({  role: 'ADMIN' } ); 
+      
+        const expectedResponse = [enrollments[0], enrollments[1]];
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual(expectedResponse);
+        expect(mockGetEnrollmentsAdminCtrl).toHaveBeenCalled();
+
+    });
+
+})
