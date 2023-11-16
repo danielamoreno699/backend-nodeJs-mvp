@@ -37,6 +37,19 @@ describe('Auth registerNewUserCtrl test', () => {
     expect(mockRegisterNewUser).toHaveBeenCalledWith(userTest);
   });
 
+  it('should return an status 409 when the user already exists', async () => {
+    const mockRegisterNewUser = jest.fn().mockRejectedValue(new Error('User already exists'));
+    (require('../../src/services/auth') as any).registerNewUser = mockRegisterNewUser;
+
+    const response = await request(app)
+      .post('/register')
+      .send(userTest);
+
+    expect(response.status).toBe(409);
+    expect(response.body).toHaveProperty('message', 'User already exists');
+    expect(mockRegisterNewUser).toHaveBeenCalledWith(userTest);
+  });
+
   
 });
 
