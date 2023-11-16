@@ -204,4 +204,38 @@ describe('test for createEnrollmentCtrl  function', () => {
       expect(mockCreateEnrollmentCtrl).toHaveBeenCalled();
     });
   });
+
+    describe('test for updateEnrollmentCtrl  function', () => {
+        const enrollment = {
+        tournamentId: '1',
+        userId: '1',
+        league: 'Some League 1',
+        club: 'Club 1',
+        category: 'Category 1',
+        practice_location: 'Location 1',
+        }
+    
+        it('updateEnrollmentCtrl should return an enrollment when status 200', async () => {
+        const mockUpdateEnrollmentCtrl = jest.fn().mockResolvedValue(enrollment);
+        (require('../../src/services/enrollment') as any).updateEnrollment = mockUpdateEnrollmentCtrl;
+    
+        const response = await request(app).put('/1').send(enrollment);
+    
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual(enrollment);
+        expect(mockUpdateEnrollmentCtrl).toHaveBeenCalled();
+        });
+
+        it('updateEnrollmentCtrl should return an status 500 when an error occurs', async () => {
+            const mockUpdateEnrollmentCtrl = jest.fn().mockRejectedValue(new Error('error'));
+            (require('../../src/services/enrollment') as any).updateEnrollment = mockUpdateEnrollmentCtrl;
+        
+            const response = await request(app).put('/1').send(enrollment);
+        
+            expect(response.status).toBe(500);
+            expect(response.body).toHaveProperty('error', 'error updating Enrollment');
+            expect(mockUpdateEnrollmentCtrl).toHaveBeenCalled();
+          });
+    
+    })
   
