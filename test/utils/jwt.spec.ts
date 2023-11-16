@@ -23,3 +23,37 @@ describe('createToken function', () => {
     });
   });
   
+  describe('verifyToken function', () => {
+    it('should verify a valid token', () => {
+    const validToken = 'valid-token';
+
+
+    (jwt.verify as jest.Mock).mockReturnValueOnce({
+        _id: 'user123',
+        email: 'user@example.com',
+        role: 'USER',
+    });
+
+    const decoded = verifyToken(validToken);
+  
+   
+      expect(decoded).toEqual({
+        _id: 'user123',
+        email: 'user@example.com',
+        role: 'USER',
+      });
+     
+    });
+
+    it('should throw an error for an invalid token', () => {
+        const invalidToken = 'invalid-token';
+
+     
+        (jwt.verify as jest.Mock).mockImplementationOnce(() => {
+            throw new Error('Invalid token');
+        });
+
+      
+        expect(() => verifyToken(invalidToken)).toThrowError('Error verifying token');
+    });
+})
