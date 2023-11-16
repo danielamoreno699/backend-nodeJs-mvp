@@ -76,6 +76,19 @@ describe(' test for getEnrollmentsUserCtrl  function', () => {
 
     });
 
+    it('getEnrollmentsUserCtrl should return an status 500 when an error occurs', async () => {
+        const mockGetEnrollmentsUserCtrl = jest.fn().mockRejectedValue(new Error('error'));
+        (require('../../src/services/enrollment') as any).getEnrollmentsUser = mockGetEnrollmentsUserCtrl;
+    
+        const response = await request(app)
+          .get('/')
+          .set({ user: { _id: '1', role: 'USER' } }); 
+    
+        expect(response.status).toBe(500);
+        expect(response.body).toHaveProperty('error', 'error getting Enrollments for User');
+        expect(mockGetEnrollmentsUserCtrl).toHaveBeenCalled();
+      })
+
    
 });
 
@@ -116,5 +129,18 @@ describe(' test for getEnrollmentsAdminCtrl  function', () => {
         expect(mockGetEnrollmentsAdminCtrl).toHaveBeenCalled();
 
     });
+
+    it('getEnrollmentsAdminCtrl should return an status 500 when an error occurs', async () => {
+        const mockGetEnrollmentsAdminCtrl = jest.fn().mockRejectedValue(new Error('error'));
+        (require('../../src/services/enrollment') as any).getEnrollments = mockGetEnrollmentsAdminCtrl;
+    
+        const response = await request(app)
+          .get('/users')
+          .set({  role: 'ADMIN' } ); 
+    
+        expect(response.status).toBe(500);
+        expect(response.body).toHaveProperty('error', 'error getting Enrollmentss');
+        expect(mockGetEnrollmentsAdminCtrl).toHaveBeenCalled();
+      })
 
 })
