@@ -203,6 +203,17 @@ describe('test for createEnrollmentCtrl  function', () => {
     
       expect(mockCreateEnrollmentCtrl).toHaveBeenCalled();
     });
+
+    it('createEnrollmentCtrl should return an status 500 when an error occurs', async () => {
+        const mockCreateEnrollmentCtrl = jest.fn().mockRejectedValue(new Error('error'));
+        (require('../../src/services/enrollment') as any).createEnrollment = mockCreateEnrollmentCtrl;
+    
+        const response = await request(app).post('/').send(enrollment);
+    
+        expect(response.status).toBe(500);
+        expect(response.body).toHaveProperty('error', 'Error creating Enrollment');
+        expect(mockCreateEnrollmentCtrl).toHaveBeenCalled();
+      });
   });
 
     describe('test for updateEnrollmentCtrl  function', () => {
@@ -239,3 +250,36 @@ describe('test for createEnrollmentCtrl  function', () => {
     
     })
   
+    describe('test for deleteEnrollmentCtrl  function', () => {
+        const enrollment = {
+        tournamentId: '1',
+        userId: '1',
+        league: 'Some League 1',
+        club: 'Club 1',
+        category: 'Category 1',
+        practice_location: 'Location 1',
+        }
+    
+        it('deleteEnrollmentCtrl should return an enrollment when status 200', async () => {
+        const mockDeleteEnrollmentCtrl = jest.fn().mockResolvedValue(enrollment);
+        (require('../../src/services/enrollment') as any).deleteEnrollment = mockDeleteEnrollmentCtrl;
+    
+        const response = await request(app).delete('/1').send(enrollment);
+    
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual(enrollment);
+        expect(mockDeleteEnrollmentCtrl).toHaveBeenCalled();
+        });
+
+        it('deleteEnrollmentCtrl should return an status 500 when an error occurs', async () => {
+            const mockDeleteEnrollmentCtrl = jest.fn().mockRejectedValue(new Error('error'));
+            (require('../../src/services/enrollment') as any).deleteEnrollment = mockDeleteEnrollmentCtrl;
+        
+            const response = await request(app).delete('/1').send(enrollment);
+        
+            expect(response.status).toBe(500);
+            expect(response.body).toHaveProperty('error', 'error deleting Enrollment');
+            expect(mockDeleteEnrollmentCtrl).toHaveBeenCalled();
+          });
+    
+    })
