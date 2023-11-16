@@ -76,3 +76,44 @@ describe(' test for getTournamentsCtrl  function', () => {
     })
 })
 
+
+describe('test for getTournamentCtrl  function', () => {
+    const tournament = {
+        name: 'test1',
+        description: 'test1',
+        date: '2021-10-10',
+        time: '10:00',
+        price: 100,
+        image: 'test1',
+        capacity: 10,
+        enrolled: 0,
+        status: 'active',
+        user_id: 1,
+    }
+
+    it('getTournamentCtrl should return an tournament when status 200', async () => {
+        const mockGetTournament = jest.fn().mockResolvedValue(tournament);
+        (require('../../src/services/tournaments') as any).getTournament = mockGetTournament;
+
+        const response = await request(app).get('/1');
+
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual(tournament);
+
+        expect(mockGetTournament).toHaveBeenCalled();
+    })
+
+    it('getTournamentCtrl should return an status 500 when an error occurs', async () => {
+        const mockGetTournament = jest.fn().mockRejectedValue(new Error('error'));
+        (require('../../src/services/tournaments') as any).getTournament = mockGetTournament;
+
+        const response = await request(app).get('/1');
+
+        expect(response.status).toBe(500);
+        expect(response.body).toHaveProperty('error', 'error getting tournament');
+        expect(mockGetTournament).toHaveBeenCalled();
+    })
+
+})
+
+
