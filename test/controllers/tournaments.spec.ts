@@ -12,6 +12,14 @@ jest.mock('../../src/services/tournaments', () => ({
     createTournament: jest.fn(),
     updateTournament: jest.fn(),
   }));
+
+  jest.mock('../../src/middleware/session', () => ({
+    authRole: (role: string) => (req: any, res: any, next: any) => {
+      req.user = { role: 'ADMIN' };
+      next();
+    },
+  }));
+  
   
   const app: Application = express();
   app.use(express.json());
@@ -112,6 +120,46 @@ describe('test for getTournamentCtrl  function', () => {
         expect(response.status).toBe(500);
         expect(response.body).toHaveProperty('error', 'error getting tournament');
         expect(mockGetTournament).toHaveBeenCalled();
+    })
+
+})
+
+describe('test for createTournamentCtrl  function for admin role', () => {
+    const tournament = {
+        name: 'test1',
+        description: 'test1',
+        date: '2021-10-10',
+        time: '10:00',
+        price: 100,
+        image: 'test1',
+        capacity: 10,
+        enrolled: 0,
+        status: 'active',
+        user_id: 1,
+    }
+
+    it('createTournamentCtrl should return an tournament when status 201', async () => {
+        const mockCreateTournament = jest.fn().mockResolvedValue(tournament);
+        (require('../../src/services/tournaments') as any).createTournament = mockCreateTournament;
+
+        const response = await request(app).post('/').send(tournament);
+
+        expect(response.status).toBe(201);
+        expect(response.body).toHaveProperty('message', 'Tournament created successfully');
+        expect(response.body).toHaveProperty('data', tournament);
+
+        expect(mockCreateTournament).toHaveBeenCalledWith(tournament);
+    })
+
+    it('createTournamentCtrl should return an status 500 when an error occurs', async () => {
+        const mockCreateTournament = jest.fn().mockRejectedValue(new Error('error'));
+        (require('../../src/services/tournaments') as any).createTournament = mockCreateTournament;
+
+        const response = await request(app).post('/').send(tournament);
+
+        expect(response.status).toBe(500);
+        expect(response.body).toHaveProperty('error', 'error creating tournament');
+        expect(mockCreateTournament).toHaveBeenCalledWith(tournament);
     })
 
 })
