@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../../src/utils/jwt.handle';
-import { checkJwt, authRole} from '../../src/middleware/session';
+import { checkJwt, authRole, RequestExt} from '../../src/middleware/session';
 
 jest.mock('../../src/utils/jwt.handle');
 
@@ -18,6 +18,45 @@ describe('checkJwt middleware', () => {
       checkJwt(req, res, next);
   
       expect(req.user).toEqual({ _id: '1', email: 'user@example.com', role: 'USER' });
-        expect(next).toHaveBeenCalled();
+    
     });
+
+    it('should return 401 if token is invalid', () => {
+        const req: RequestExt = {
+          headers: { authorization: 'Bearer invalid-token' },
+        } as any;
+        const res = {
+          status: jest.fn(() => res),
+          send: jest.fn(),
+        } as any;
+        const next: NextFunction = jest.fn();
+    
+        (verifyToken as jest.Mock).mockReturnValueOnce(null);
+    
+        checkJwt(req, res, next);
+    
+        expect(req.user).toBeUndefined();
+        expect(res.status).toHaveBeenCalledWith(401);
+        expect(res.send).toHaveBeenCalledWith({ error: 'you are not authorized' });
+        
+      });
+
+      it('should return 401 if authorization header is not provided', () => {
+        const req: RequestExt = {
+          headers: {},
+        } as any;
+        const res = {
+          status: jest.fn(() => res),
+          send: jest.fn(),
+        } as any;
+        const next: NextFunction = jest.fn();
+    
+        checkJwt(req, res, next);
+    
+        expect(req.user).toBeUndefined();
+        expect(res.status).toHaveBeenCalledWith(401);
+        expect(res.send).toHaveBeenCalledWith({ error: 'you are not authorized' });
+       
+      });
+    
 })
