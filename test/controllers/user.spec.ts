@@ -15,7 +15,7 @@ app.get('/users', getUsersCtrl);
 app.get('/users/:id', getUserCtrl);
 app.put('/users/:id', updateUserCtrl);
 
-describe('User controller test for getusers function', () => {
+describe('User controller test for getUsersCtrl  function', () => {
   const users = [
     {
       name: 'test1',
@@ -59,4 +59,24 @@ describe('User controller test for getusers function', () => {
   });
 
 
+});
+
+describe('User controller test for getUserCtrl  function', () => {
+  const user = {
+    name: 'test1',
+    last_name: 'test1',
+    email: 'test1@email.com',
+    role: 'user',
+  }
+  
+  it('getUserCtrl should return an user when status 200', async () => {
+    const mockGetUser = jest.fn().mockResolvedValue(user);
+    (require('../../src/services/user') as any).getUser = mockGetUser;
+
+    const response = await request(app).get('/users/1');
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(user);
+    expect(mockGetUser).toHaveBeenCalledWith('1');
+  }); 
 });
