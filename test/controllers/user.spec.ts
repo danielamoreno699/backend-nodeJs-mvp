@@ -31,7 +31,7 @@ describe('User controller test for getusers function', () => {
     },
   ];
 
-  it('should return an array of users when status 200', async () => {
+  it('getUsersCtrl should return an array of users when status 200', async () => {
     
     const mockGetUsers = jest.fn().mockResolvedValue([users[0], users[1]]);
     (require('../../src/services/user') as any).getUsers = mockGetUsers;
@@ -44,6 +44,17 @@ describe('User controller test for getusers function', () => {
     expect(response.body).toEqual([users[0], users[1]]);
 
   
+    expect(mockGetUsers).toHaveBeenCalled();
+  });
+
+  it('getUsersCtrl should return an status 500 when an error occurs', async () => {
+    const mockGetUsers = jest.fn().mockRejectedValue(new Error('error'));
+    (require('../../src/services/user') as any).getUsers = mockGetUsers;
+
+    const response = await request(app).get('/users');
+
+    expect(response.status).toBe(500);
+    expect(response.body).toHaveProperty('error', 'error getting users');
     expect(mockGetUsers).toHaveBeenCalled();
   });
 
