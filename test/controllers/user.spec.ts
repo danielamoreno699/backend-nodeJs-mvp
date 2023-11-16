@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { mockRequest } from 'jest-mock-req-res';
 import express, { Application } from 'express';
 import { getUsersCtrl, updateUserCtrl, getUserCtrl } from '../../src/controllers/users';
 
@@ -79,4 +80,53 @@ describe('User controller test for getUserCtrl  function', () => {
     expect(response.body).toEqual(user);
     expect(mockGetUser).toHaveBeenCalledWith('1');
   }); 
+
+  it('getUserCtrl should return an status 500 when an error occurs', async () => {
+    const mockGetUser = jest.fn().mockRejectedValue(new Error('error'));
+    (require('../../src/services/user') as any).getUser = mockGetUser;
+
+    const response = await request(app).get('/users/1');
+
+    expect(response.status).toBe(500);
+    expect(response.body).toHaveProperty('error', 'error getting user');
+    expect(mockGetUser).toHaveBeenCalledWith('1');
+  });
+
+});
+
+describe('test updateUserCtrl function', () => {
+  const userId = '1';
+  const req = mockRequest({
+    params: { id: userId },
+    body: { name: 'John', last_name: 'Doe' },
+  });
+
+  const updatedUser = { id: userId, name: 'John', last_name: 'Smith' };
+  const mockUpdateUser = jest.fn().mockResolvedValue(updatedUser) as jest.Mock;
+
+  it('updateUserCtrl should return the updated user when status 200', async () => {
+    
+    (require('../../src/services/user') as any).updateUser = mockUpdateUser;
+  
+    const response = await request(app)
+      .put(`/users/${userId}`)
+      .send({ name: 'John', last_name: 'Doe' }); 
+  
+    expect(response.status).toBe(200);
+    expect(mockUpdateUser).toHaveBeenCalledWith(userId, { name: 'John', last_name: 'Doe' });
+    expect(mockUpdateUser).toHaveBeenCalledTimes(1);
+
+  });
+  
+
+  it('updateUserCtrl should return an status 500 when an error occurs', async () => {
+    const mockUpdateUser = jest.fn().mockRejectedValue(new Error('error'));
+    (require('../../src/services/user') as any).updateUser = mockUpdateUser;
+
+    const response = await request(app).put(`/users/${userId}`).send(req.body);
+
+    expect(response.status).toBe(500);
+    expect(response.body).toHaveProperty('error', 'error updating user');
+    expect(mockUpdateUser).toHaveBeenCalledWith(userId, req.body);
+  });
 });

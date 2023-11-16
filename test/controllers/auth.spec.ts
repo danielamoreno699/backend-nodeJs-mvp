@@ -72,7 +72,7 @@ describe('Auth loginUserCtrl test', () => {
     password: 'test123',
     };
 
-    it('should login a user when all fields are sent by the user', async () => {
+    it('function loginUserCtrl should logged a user when all fields are correct', async () => {
     const mockLoginUser = jest.fn().mockResolvedValue('mockUserId');
     (require('../../src/services/auth') as any).loginUser = mockLoginUser;
 

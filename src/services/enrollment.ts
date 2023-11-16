@@ -1,6 +1,6 @@
 
 
-import  {Enrollment} from '../interface/registration.interface';
+import  {Enrollment} from '../interface/enrollment.interface';
 import enrollmentModel from '../model/enrollment';
 
 // operations for regular users 
