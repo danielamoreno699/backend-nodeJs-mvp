@@ -36,30 +36,26 @@ describe(' test for getTournamentsCtrl  function', () => {
 
         const tournaments = [
             {
-                name: 'test1',
-                description: 'test1',
-                date: '2021-10-10',
-                time: '10:00',
-                price: 100,
-                image: 'test1',
-                capacity: 10,
-                enrolled: 0,
-                status: 'active',
-                user_id: 1,
+              name: 'test1',
+              location: 'Test Location 1',
+              city: 'Test City 1',
+              desc: 'test1',
+              img: 'test1',
+              country: 'Test Country 1',
+              date: '2023-10-10',
+              capacity_available: 10,
             },
             {
-                name: 'test2',
-                description: 'test2',
-                date: '2021-10-10',
-                time: '10:00',
-                price: 100,
-                image: 'test2',
-                capacity: 10,
-                enrolled: 0,
-                status: 'active',
-                user_id: 1,
+              name: 'test2',
+              location: 'Test Location 2',
+              city: 'Test City 2',
+              desc: 'test2',
+              img: 'test2',
+              country: 'Test Country 2',
+              date: '2023-10-10',
+              capacity_available: 10,
             },
-        ];
+          ];
 
         const mockGetTournaments = jest.fn().mockResolvedValue([tournaments[0], tournaments[1]]);
         (require('../../src/services/tournaments') as any).getTournaments = mockGetTournaments;
