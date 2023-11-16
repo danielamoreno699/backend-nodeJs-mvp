@@ -66,10 +66,12 @@ describe(' test for getEnrollmentsUserCtrl  function', () => {
         .get('/')
         .set({ user: { _id: '1', role: 'USER' } }); 
       
-
+        const expectedResponse = {
+            message: "User Enrollments retrieved successfully",
+            data: [enrollments[0], enrollments[1]]
+          };
         expect(response.status).toBe(200);
-        
-
+        expect(response.body).toEqual(expectedResponse);
         expect(mockGetEnrollmentsUserCtrl).toHaveBeenCalled();
 
     });
