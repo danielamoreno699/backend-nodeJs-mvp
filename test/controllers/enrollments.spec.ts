@@ -144,3 +144,38 @@ describe(' test for getEnrollmentsAdminCtrl  function', () => {
       })
 
 })
+
+
+describe('test for getEnrollmentCtrl  function', () => {
+    const enrollment = {
+        tournamentId: '1',
+        userId: '1',
+        league: 'Some League 1',
+        club: 'Club 1',
+        category: 'Category 1',
+        practice_location: 'Location 1',
+      }
+      
+    it('getEnrollmentCtrl should return an enrollment when status 200', async () => {
+        const mockGetEnrollmentCtrl = jest.fn().mockResolvedValue(enrollment);
+        (require('../../src/services/enrollment') as any).getEnrollment = mockGetEnrollmentCtrl;
+    
+        const response = await request(app).get('/1');
+    
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual(enrollment);
+        expect(mockGetEnrollmentCtrl).toHaveBeenCalled();
+      });
+    
+      it('getEnrollmentCtrl should return an status 500 when an error occurs', async () => {
+        const mockGetEnrollmentCtrl = jest.fn().mockRejectedValue(new Error('error'));
+        (require('../../src/services/enrollment') as any).getEnrollment = mockGetEnrollmentCtrl;
+    
+        const response = await request(app).get('/1');
+    
+        expect(response.status).toBe(500);
+        expect(response.body).toHaveProperty('error', 'error getting Enrollment');
+        expect(mockGetEnrollmentCtrl).toHaveBeenCalled();
+      });
+    
+});
