@@ -164,4 +164,40 @@ describe('test for createTournamentCtrl  function for admin role', () => {
 
 })
 
+describe('test for updateTournamentCtrl  function for admin role', () => {
+    const tournament = {
+        name: 'test1',
+        city: 'test1',
+        desc: 'test1',
+        img: 'test1',
+        country: 'test1',
+        date: '2021-10-10',
+        capacity_available: 10
+    }
+
+    it('updateTournamentCtrl should return an tournament when status 200', async () => {
+        const mockUpdateTournament = jest.fn().mockResolvedValue(tournament);
+        (require('../../src/services/tournaments') as any).updateTournament = mockUpdateTournament;
+
+        const response = await request(app).put('/1').send(tournament);
+
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual(tournament);
+
+        expect(mockUpdateTournament).toHaveBeenCalledWith('1', tournament);
+    })
+
+    it('updateTournamentCtrl should return an status 500 when an error occurs', async () => {
+        const mockUpdateTournament = jest.fn().mockRejectedValue(new Error('error'));
+        (require('../../src/services/tournaments') as any).updateTournament = mockUpdateTournament;
+
+        const response = await request(app).put('/1').send(tournament);
+
+        expect(response.status).toBe(500);
+        expect(response.body).toHaveProperty('error', 'error update item');
+        expect(mockUpdateTournament).toHaveBeenCalledWith('1', tournament);
+    })
+
+})
+
 
