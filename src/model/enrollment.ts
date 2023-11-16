@@ -1,7 +1,7 @@
 import { Schema,model } from "mongoose";
-import {Registration} from "../interface/registration.interface";
+import {Enrollment} from "../interface/registration.interface";
 
-const registrationSchema = new Schema <Registration>(
+const registrationSchema = new Schema <Enrollment>(
     
     {
         tournamentId: { 
@@ -36,5 +36,5 @@ const registrationSchema = new Schema <Registration>(
     }
 )
 
-const registrationModel = model<Registration>("Registration", registrationSchema);
-export default registrationModel;
+const enrollmentModel = model<Enrollment>("Registration", registrationSchema);
+export default enrollmentModel;

@@ -1,7 +1,7 @@
 import { Tournament } from "./tournament.interface";
 import { User } from "./user.interface";
 
-export interface Registration {
+export interface Enrollment {
 
 
     tournamentId: Tournament;
