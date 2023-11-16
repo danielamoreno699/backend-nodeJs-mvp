@@ -86,5 +86,33 @@ describe('Auth loginUserCtrl test', () => {
     expect(mockLoginUser).toHaveBeenCalledWith(userTestLogin);
     })
 
+    it('should return an status 401 when the password does not match', async () => {
+      const mockLoginUser = jest.fn().mockResolvedValue('Password does not match');
+      (require('../../src/services/auth') as any).loginUser = mockLoginUser;
+  
+      const response = await request(app)
+        .post('/login')
+        .send(userTestLogin);
+  
+      expect(response.status).toBe(401);
+      expect(response.body).toHaveProperty('message', 'Authentication failed');
+      expect(response.body).toHaveProperty('error', 'Password does not match');
+      expect(mockLoginUser).toHaveBeenCalledWith(userTestLogin);
+    });
+
+    it('should return an status 500 when an error occurs', async () => {
+        const mockLoginUser = jest.fn().mockRejectedValue(new Error('error'));
+        (require('../../src/services/auth') as any).loginUser = mockLoginUser;
+    
+        const response = await request(app)
+            .post('/login')
+            .send(userTestLogin);
+    
+        expect(response.status).toBe(500);
+        expect(response.body).toHaveProperty('error', 'Error during authentication');
+        expect(mockLoginUser).toHaveBeenCalledWith(userTestLogin);
+        })
+
+
   
 });
