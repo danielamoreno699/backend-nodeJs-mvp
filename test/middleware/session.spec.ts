@@ -60,3 +60,35 @@ describe('checkJwt middleware', () => {
       });
     
 })
+
+
+describe('authRole middleware', () => {
+    it('should call next if user has the required role', () => {
+      const req: RequestExt = {
+        user: { _id: '1', email: 'user@example.com', role: 'ADMIN' },
+      } as any;
+      const res = {} as Response;
+      const next: NextFunction = jest.fn();
+  
+      authRole('ADMIN')(req, res, next);
+  
+      
+    });
+  
+    it('should return 401 if user does not have the required role', () => {
+      const req: RequestExt = {
+        user: { _id: '1', email: 'user@example.com', role: 'USER' },
+      } as any;
+      const res = {
+        status: jest.fn(() => res),
+        send: jest.fn(),
+      } as any;
+      const next: NextFunction = jest.fn();
+  
+      authRole('ADMIN')(req, res, next);
+  
+      expect(res.status).toHaveBeenCalledWith(401);
+      expect(res.send).toHaveBeenCalledWith('You are not authorized as Admin');
+     
+    });
+  });
