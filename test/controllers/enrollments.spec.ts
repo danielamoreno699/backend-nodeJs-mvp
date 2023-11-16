@@ -179,3 +179,29 @@ describe('test for getEnrollmentCtrl  function', () => {
       });
     
 });
+
+describe('test for createEnrollmentCtrl  function', () => {
+    const enrollment = {
+      tournamentId: '1',
+      userId: '1',
+      league: 'Some League 1',
+      club: 'Club 1',
+      category: 'Category 1',
+      practice_location: 'Location 1',
+    }
+  
+    it('createEnrollmentCtrl should return an enrollment when status 200', async () => {
+      const mockCreateEnrollmentCtrl = jest.fn().mockResolvedValue({
+        data: enrollment,
+        message: 'Enrollment created successfully',
+      });
+      (require('../../src/services/enrollment') as any).createEnrollment = mockCreateEnrollmentCtrl;
+  
+      const response = await request(app).post('/').send(enrollment);
+  
+      expect(response.status).toBe(200);
+    
+      expect(mockCreateEnrollmentCtrl).toHaveBeenCalled();
+    });
+  });
+  

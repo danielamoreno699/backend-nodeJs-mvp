@@ -66,7 +66,7 @@ const createEnrollmentCtrl = async (req: Request, res: Response) => {
         });
 
         
-        res.status(201).json({
+        res.status(200).json({
             message: 'Enrollment created successfully',
             data: responseCreateEnrollment,
         });
