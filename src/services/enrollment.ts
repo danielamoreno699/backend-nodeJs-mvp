@@ -21,13 +21,13 @@ const createEnrollment = async(tournamentId:string, userId: string, registration
           }
         if (tournament.capacity_available <= 0) {
             throw new Error('No available slots in the tournament');
-          }
+         }
         const responseCreateEnrollment = await enrollmentModel.create(enrollmentData);
         await tournamentModel.findByIdAndUpdate(tournamentId, {
             $inc: { capacity_available: -1 },
           });
         
-        return responseCreateEnrollment;
+        responseCreateEnrollment.save();
 
     } catch (error) {
         throw new Error('error creating Enrollment');

@@ -23,15 +23,15 @@ const getEnrollmentsUserCtrl = async(req: RequestExt, res: Response) => {
                 console.log('userId:', userId);
 
                 const userEnrollments = await getEnrollmentsUser(userId);
-                console.log('userRegistrations:', userEnrollments);
+                console.log('userEnrollment:', userEnrollments);
                 res.status(200).json({
-                    message: 'User registrations retrieved successfully',
+                    message: 'User Enrollments retrieved successfully',
                    
                     data: userEnrollments,
                 });
         } catch (error) {
             console.log(error);
-            res.status(500).json({ message: 'Error getting user Enrollments' });
+            handleHttp(res, 'error getting Enrollments for User');
         }
      }
 

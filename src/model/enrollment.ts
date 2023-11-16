@@ -36,5 +36,5 @@ const enrollmentSchema = new Schema <Enrollment>(
     }
 )
 
-const enrollmentModel = model<Enrollment>("Registration", enrollmentSchema);
+const enrollmentModel = model<Enrollment>("Enrollments", enrollmentSchema);
 export default enrollmentModel;
