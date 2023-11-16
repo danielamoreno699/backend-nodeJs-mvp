@@ -21,7 +21,7 @@ const getUsers = async () => {
 
 
 const getUser = async (id: string) => {
-    // Admin can get details of a user by ID
+   
     const responseGetUser = await userModel.findById(id).select('name last_name email role img');
 
     if (!responseGetUser) {
@@ -39,7 +39,7 @@ const getUser = async (id: string) => {
     return formattedUser;
 };
 
-const updateUser = async(id: string, data: Partial<User>) => { // admin can get access to user details and modify them
+const updateUser = async(id: string, data: Partial<User>) => { 
     const responseUpdateUser = await userModel.findOneAndUpdate(
         { _id: id },
         { $set: data }, 
