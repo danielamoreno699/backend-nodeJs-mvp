@@ -65,4 +65,4 @@ const deleteTournamentCtrl = async({params}: Request, res: Response) => {
         
         }
 
-        export {getTournamentsCtrl, updateTournamentCtrl, getTournamentCtrl, createTournamentCtrl, deleteTournamentCtrl};
+export {getTournamentsCtrl, updateTournamentCtrl, getTournamentCtrl, createTournamentCtrl, deleteTournamentCtrl};

@@ -2,6 +2,7 @@
 
 import  {Enrollment} from '../interface/enrollment.interface';
 import enrollmentModel from '../model/enrollment';
+import tournamentModel from '../model/tournament';
 
 // operations for regular users 
 
@@ -14,8 +15,20 @@ const createEnrollment = async(tournamentId:string, userId: string, registration
     };
     
     try {
+        const tournament = await tournamentModel.findById(tournamentId);
+        if (!tournament) {
+            throw new Error('Tournament not found');
+          }
+        if (tournament.capacity_available <= 0) {
+            throw new Error('No available slots in the tournament');
+          }
         const responseCreateEnrollment = await enrollmentModel.create(enrollmentData);
-        await responseCreateEnrollment.save();
+        await tournamentModel.findByIdAndUpdate(tournamentId, {
+            $inc: { capacity_available: -1 },
+          });
+        
+        return responseCreateEnrollment;
+
     } catch (error) {
         throw new Error('error creating Enrollment');
     }
