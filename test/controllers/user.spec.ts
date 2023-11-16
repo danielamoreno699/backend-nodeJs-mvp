@@ -2,7 +2,7 @@ import request from 'supertest';
 import express, { Application } from 'express';
 import { getUsersCtrl, updateUserCtrl, getUserCtrl } from '../../src/controllers/users';
 
-// Mocking the users service for testing purposes
+
 jest.mock('../../src/services/user', () => ({
   getUser: jest.fn(),
   getUsers: jest.fn(),
@@ -15,7 +15,7 @@ app.get('/users', getUsersCtrl);
 app.get('/users/:id', getUserCtrl);
 app.put('/users/:id', updateUserCtrl);
 
-describe('User controller test', () => {
+describe('User controller test for getusers function', () => {
   const users = [
     {
       name: 'test1',
@@ -31,7 +31,7 @@ describe('User controller test', () => {
     },
   ];
 
-  it('should return an array of users', async () => {
+  it('should return an array of users when status 200', async () => {
     
     const mockGetUsers = jest.fn().mockResolvedValue([users[0], users[1]]);
     (require('../../src/services/user') as any).getUsers = mockGetUsers;
