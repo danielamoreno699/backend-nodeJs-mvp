@@ -16,7 +16,7 @@ app.get('/users', getUsersCtrl);
 app.get('/users/:id', getUserCtrl);
 app.put('/users/:id', updateUserCtrl);
 
-describe('User controller test for getUsersCtrl  function', () => {
+describe(' test for getUsersCtrl  function', () => {
   const users = [
     {
       name: 'test1',
@@ -62,7 +62,7 @@ describe('User controller test for getUsersCtrl  function', () => {
 
 });
 
-describe('User controller test for getUserCtrl  function', () => {
+describe('test for getUserCtrl  function', () => {
   const user = {
     name: 'test1',
     last_name: 'test1',
@@ -94,7 +94,7 @@ describe('User controller test for getUserCtrl  function', () => {
 
 });
 
-describe('test updateUserCtrl function', () => {
+describe('test for updateUserCtrl function', () => {
   const userId = '1';
   const req = mockRequest({
     params: { id: userId },
