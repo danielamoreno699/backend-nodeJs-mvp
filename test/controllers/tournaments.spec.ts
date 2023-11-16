@@ -196,4 +196,40 @@ describe('test for updateTournamentCtrl  function for admin role', () => {
 
 })
 
+describe('test for deleteTournamentCtrl  function for admin role', () => {
+    const tournament = {
+        name: 'test1',
+        city: 'test1',
+        desc: 'test1',
+        img: 'test1',
+        country: 'test1',
+        date: '2021-10-10',
+        capacity_available: 10
+    }
+
+    it('deleteTournamentCtrl should return an tournament when status 200', async () => {
+        const mockDeleteTournament = jest.fn().mockResolvedValue(tournament);
+        (require('../../src/services/tournaments') as any).deleteTournament = mockDeleteTournament;
+
+        const response = await request(app).delete('/1').send(tournament);
+
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual(tournament);
+
+        expect(mockDeleteTournament).toHaveBeenCalledWith('1');
+    })
+
+    it('deleteTournamentCtrl should return an status 500 when an error occurs', async () => {
+        const mockDeleteTournament = jest.fn().mockRejectedValue(new Error('error'));
+        (require('../../src/services/tournaments') as any).deleteTournament = mockDeleteTournament;
+
+        const response = await request(app).delete('/1').send(tournament);
+
+        expect(response.status).toBe(500);
+        expect(response.body).toHaveProperty('error', 'error deleting tournament');
+        expect(mockDeleteTournament).toHaveBeenCalledWith('1');
+    })
+
+})
+
 
