@@ -50,6 +50,19 @@ describe('Auth registerNewUserCtrl test', () => {
     expect(mockRegisterNewUser).toHaveBeenCalledWith(userTest);
   });
 
+  it('should return an status 500 when an error occurs', async () => {
+    const mockRegisterNewUser = jest.fn().mockRejectedValue(new Error('error'));
+    (require('../../src/services/auth') as any).registerNewUser = mockRegisterNewUser;
+
+    const response = await request(app)
+      .post('/register')
+      .send(userTest);
+
+    expect(response.status).toBe(500);
+    expect(response.body).toHaveProperty('error', 'Error creating user');
+    expect(mockRegisterNewUser).toHaveBeenCalledWith(userTest);
+  });
+
   
 });
 
