@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { registerNewUser, loginUser } from '../services/auth';
+import { registerNewUser, loginUser, renewToken } from '../services/auth';
 import { handleHttp } from '../utils/error.hanlde';
 
 // create users through authentication
@@ -48,6 +48,18 @@ const loginUserCtrl = async ({ body }: Request, res: Response) => {
 };
 
 // renew token
+const renewTokenCtrl = async (req: Request, res: Response) => {
+    const { _id, email, role } = req.body;
+    try {
+        const newToken = await renewToken({ _id, email, role });
+        res.json({
+            message: 'Token renewed successfully',
+            data: newToken
+        })
+    } catch (error) {
+        handleHttp(res, 'Error renewing token');
+    }
 
+};
 
-export { registerNewUserCtrl, loginUserCtrl };
+export { registerNewUserCtrl, loginUserCtrl, renewTokenCtrl };
