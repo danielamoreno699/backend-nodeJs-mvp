@@ -2,7 +2,7 @@ import { Auth } from "../interface/auth.interface";
 import { User } from "../interface/user.interface";
 import userModel from "../model/user";
 import { encrypt, decrypt} from "../utils/bcrypt.handler";
-import { createToken } from "../utils/jwt.handle";
+import { TokenPayload, createToken } from "../utils/jwt.handle";
 
 const registerNewUser = async ({ name, last_name, email, password, role} : User) => {
     // check if an user already exists
@@ -48,4 +48,12 @@ const loginUser = async ({email, password}: Auth) => {
 
 }
 
-export { registerNewUser, loginUser };
+const renewToken = async(token:TokenPayload) =>{
+    const newtOken = createToken({ _id: token._id.toString(), email: token.email, role: token.role });
+    return newtOken;
+}
+
+
+
+
+export { registerNewUser, loginUser, renewToken };

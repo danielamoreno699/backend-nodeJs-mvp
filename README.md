@@ -1,5 +1,5 @@
-## WanderPal
-> WanderPal is a RESTful API that allows users to reserve a trip.
+## AceClash Tournaments
+> AceClash Tournaments is a dynamic and user-friendly RESTful API designed specifically for tennis enthusiasts. This platform empowers users to actively participate in a diverse array of tennis tournaments organized by the platform's administrators. Through seamless and standardized RESTful endpoints, users can easily enroll in various types of tournaments, each offering a unique and competitive tennis experience.
 
 ## API Manipulation and Endpoints
 

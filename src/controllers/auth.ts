@@ -47,4 +47,7 @@ const loginUserCtrl = async ({ body }: Request, res: Response) => {
     }
 };
 
+// renew token
+
+
 export { registerNewUserCtrl, loginUserCtrl };

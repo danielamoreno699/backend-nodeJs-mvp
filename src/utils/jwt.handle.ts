@@ -3,7 +3,7 @@ import { ObjectId } from 'mongoose';
 import { Schema } from "mongoose";
 const JWT_SECRET = process.env.JWT_SECRET || "token.02020202"
 
-interface TokenPayload {
+export interface TokenPayload {
     _id: string;
     email: string;
     role: string;
