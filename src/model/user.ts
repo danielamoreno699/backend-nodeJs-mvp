@@ -4,6 +4,10 @@ import { User } from "../interface/user.interface";
 const userSchema = new Schema <User>(
 
     {
+        img: { 
+            type: String, 
+            required: false 
+        },
         name: { 
             type: String, 
             required: true 
@@ -24,10 +28,6 @@ const userSchema = new Schema <User>(
         role: { 
             type: String, 
             required: true 
-        },
-        img: { 
-            type: String, 
-            required: false 
         }
     },
     {
