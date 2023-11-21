@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { registerNewUser, loginUser, renewToken } from '../services/auth';
 import { handleHttp } from '../utils/error.hanlde';
+import { verifyToken } from '../utils/jwt.handle';
 
 // create users through authentication
 
@@ -36,9 +37,20 @@ const loginUserCtrl = async ({ body }: Request, res: Response) => {
                 error: resUser
             });
         } else {
+
+            const token = resUser
+            const decodedToken = verifyToken(token);
+            const { _id, role, email } = decodedToken;
+
+
             res.status(200).json({
                 message: 'User logged in successfully',
-                data: resUser
+                data: resUser,
+                user:{
+                    _id,
+                    email,
+                    role
+                }
             });
         }
     } catch (error) {
