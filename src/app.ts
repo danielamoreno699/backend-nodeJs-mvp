@@ -3,9 +3,12 @@ import express from 'express';
 import cors from 'cors';
 import db from './config/mongo';
 import routes from './routes/index'
+const JWT_SECRET = process.env.JWT_SECRET || "token.02020202"
+import session from 'express-session';
 
 
 const PORT = process.env.PORT || 3001;
+
 
 const app = express()
 
@@ -14,6 +17,17 @@ db();
 app.use(cors({
     origin: '*'
 }))
+
+
+app.use(
+    session({
+      secret: JWT_SECRET,
+      resave: false,
+      saveUninitialized: true,
+      cookie: { secure: false }, 
+    })
+  );
+
 app.use(express.json())
 
 // routes

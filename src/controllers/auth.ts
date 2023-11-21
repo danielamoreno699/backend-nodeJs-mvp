@@ -1,7 +1,14 @@
 import { Request, Response } from 'express';
-import { registerNewUser, loginUser, renewToken } from '../services/auth';
+import { registerNewUser, loginUser, renewToken, getUserById } from '../services/auth';
 import { handleHttp } from '../utils/error.hanlde';
 import { verifyToken } from '../utils/jwt.handle';
+
+import "express-session";
+declare module "express-session" {
+  interface SessionData {
+    user: string;
+  }
+}
 
 // create users through authentication
 
@@ -74,4 +81,33 @@ const renewTokenCtrl = async (req: Request, res: Response) => {
 
 };
 
-export { registerNewUserCtrl, loginUserCtrl, renewTokenCtrl };
+
+// persistance login
+const persistanceLoginCtrl = async (req: Request, res: Response) => {
+    const session = req.session;
+    const { id } = req.params;
+
+   
+    try {
+        const user = await getUserById(id);
+        if (user) {
+            session.user = user.toString();
+            res.json({
+                message: 'User logged in ',
+                data: user
+            })
+        } else {
+            res.status(404).json({
+                message: 'User not found',
+            })
+        }
+    } catch (error) {
+        handleHttp(res, 'Error during authentication');
+    }
+  } ;
+  
+
+
+
+
+export { registerNewUserCtrl, loginUserCtrl, renewTokenCtrl, persistanceLoginCtrl};

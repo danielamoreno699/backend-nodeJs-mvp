@@ -53,7 +53,12 @@ const renewToken = async(token:TokenPayload) =>{
     return newtOken;
 }
 
+const getUserById = async(id: string) => {
+    const userId = await userModel.findById(id);
+    return userId;
+}
 
 
 
-export { registerNewUser, loginUser, renewToken };
+
+export { registerNewUser, loginUser, renewToken, getUserById };
