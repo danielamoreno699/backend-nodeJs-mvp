@@ -8,7 +8,6 @@ const router = Router();
 router.post("/register", registerNewUserCtrl)
 router.post("/login", loginUserCtrl)
 router.get("/renew", renewTokenCtrl)
-router.get("/session/:id", persistanceLoginCtrl)
 
 
 export default router;
