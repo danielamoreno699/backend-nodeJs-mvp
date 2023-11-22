@@ -9,6 +9,7 @@ const getUsers = async () => {
 
 
     const formattedUsers = responseGetUsers.map((user) => ({
+        _id: user._id,
         name: user.name,
         last_name: user.last_name,
         email: user.email,
