@@ -36,8 +36,19 @@ const createEnrollment = async(tournamentId:string, userId: string, registration
     }
 
 const getEnrollments = async()=> {  // admin  can get all list of registrations
-    const responseGetEnrollments = await enrollmentModel.find({}) 
-    return responseGetEnrollments;
+    try {
+       
+        const responseGetEnrollments = await enrollmentModel.find({})
+          .populate('tournamentId', 'name')
+        
+    
+       
+        return responseGetEnrollments;
+      } catch (error) {
+       
+        console.error('Error fetching enrollments:', error);
+        throw error; 
+      }
     
     }
 
