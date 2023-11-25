@@ -40,6 +40,8 @@ const getEnrollments = async()=> {  // admin  can get all list of registrations
        
         const responseGetEnrollments = await enrollmentModel.find({})
           .populate('tournamentId', 'name')
+          .populate('userId', 'name last_name email');
+            
         
     
        
