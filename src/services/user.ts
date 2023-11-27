@@ -49,5 +49,11 @@ const updateUser = async(id: string, data: Partial<User>) => {
     return responseUpdateUser;
 }
 
-export {getUsers, updateUser, getUser};
+
+const deleteUser = async(id: string) => {
+    const responseDeleteUser = await userModel.findByIdAndDelete(id);
+    return responseDeleteUser;
+}
+
+export {getUsers, updateUser, getUser, deleteUser};
 

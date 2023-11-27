@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import { handleHttp } from '../utils/error.hanlde';
-import { getUsers, updateUser, getUser } from '../services/user';
+import { getUsers, updateUser, getUser, deleteUser } from '../services/user';
 
 const getUsersCtrl = async(req: Request, res: Response) => {
 
@@ -51,4 +51,19 @@ const updateUserCtrl = async(req: Request, res: Response) => {
 
 }
 
-export {getUsersCtrl, updateUserCtrl, getUserCtrl};
+
+const deleteUserCtrl = async(req: Request, res: Response) => {
+    const userId = req.params.id;
+    try {
+        const deletedUser = await deleteUser(userId);
+        res.status(200).json({
+            message: 'User deleted successfully',
+            data: deletedUser,
+        });
+    } catch (error) {
+        handleHttp(res, 'error deleting user');
+    }
+
+}
+
+export {getUsersCtrl, updateUserCtrl, getUserCtrl, deleteUserCtrl};
