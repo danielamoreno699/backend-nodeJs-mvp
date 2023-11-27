@@ -79,8 +79,7 @@ const getEnrollment = async(id: string)=> {  // user can get a single registrati
         console.error('Error fetching enrollments:', error);
         throw error; 
       }
-    // const responseGetEnrollment = await enrollmentModel.findById({_id: id});
-    // return responseGetEnrollment;
+
     
     }
 

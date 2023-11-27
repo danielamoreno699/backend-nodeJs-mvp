@@ -55,5 +55,10 @@ const deleteUser = async(id: string) => {
     return responseDeleteUser;
 }
 
-export {getUsers, updateUser, getUser, deleteUser};
+const createUser = async(user: User) => {
+    const responseCreateUser = await userModel.create(user);
+    return responseCreateUser;
+}
+
+export {getUsers, updateUser, getUser, deleteUser, createUser};
 

@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import { handleHttp } from '../utils/error.hanlde';
-import { getUsers, updateUser, getUser, deleteUser } from '../services/user';
+import { getUsers, updateUser, getUser, deleteUser, createUser } from '../services/user';
 
 const getUsersCtrl = async(req: Request, res: Response) => {
 
@@ -66,4 +66,27 @@ const deleteUserCtrl = async(req: Request, res: Response) => {
 
 }
 
-export {getUsersCtrl, updateUserCtrl, getUserCtrl, deleteUserCtrl};
+
+const createUserCtrl = async (req: Request, res: Response) => {
+    try {
+        const { name, last_name, email, password, role, img } = req.body;
+
+        const responseCreateUser = await createUser({
+            name,
+            last_name,
+            email,
+            password,
+            role,
+            img: img || '' 
+        });
+
+        res.status(200).json({
+            message: 'User created successfully',
+            data: responseCreateUser,
+        });
+    } catch (error) {
+        handleHttp(res, 'Error creating user');
+    }
+};
+
+export {getUsersCtrl, updateUserCtrl, getUserCtrl, deleteUserCtrl, createUserCtrl};
