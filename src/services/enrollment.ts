@@ -54,12 +54,21 @@ const getEnrollments = async()=> {  // admin  can get all list of registrations
     
     }
 
-const getEnrollmentsUser = async(userId?: string)=> {  // user can get list of registrations that he created
-    const responseGetEnrollments = await enrollmentModel.find({userId}) 
-    
-    return responseGetEnrollments;
-    
-    }
+    const getEnrollmentsUser = async (userId?:string) => {
+        try {
+          // user can get a list of registrations that he created
+          const responseGetEnrollments = await enrollmentModel
+            .find({ userId })
+            .populate('tournamentId', 'name')
+            .populate('userId', 'name last_name email');
+      
+          return responseGetEnrollments;
+        } catch (error) {
+          console.error('Error fetching enrollments:', error);
+          throw error;
+        }
+      };
+      
 
 
 const getEnrollment = async(id: string)=> {  // user can get a single registration
