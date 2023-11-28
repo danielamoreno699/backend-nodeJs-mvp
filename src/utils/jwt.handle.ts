@@ -11,7 +11,7 @@ export interface TokenPayload {
 
 const createToken = ({ _id,email, role }: TokenPayload): string => {
         const payload = { _id, email, role };
-        const token = sign(payload, process.env.JWT_SECRET || "default_secret", { expiresIn: '5d' });
+        const token = sign(payload, process.env.JWT_SECRET || "default_secret");
         return token;
 };
 

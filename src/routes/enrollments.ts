@@ -6,7 +6,7 @@ import ROLES from '../config/roles_list';
 
 const router = Router();
 
-router.get("/", authRole(ROLES.USER),  getEnrollmentsUserCtrl)
+router.get("/:id/user-details", authRole(ROLES.USER),  getEnrollmentsUserCtrl)
 router.get("/users", authRole(ROLES.ADMIN),  getEnrollmentsAdminCtrl)
 router.get("/:id", getEnrollmentCtrl)
 router.post("/" , createEnrollmentCtrl)

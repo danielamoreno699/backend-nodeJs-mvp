@@ -17,23 +17,23 @@ const getEnrollmentsAdminCtrl = async(req: Request, res: Response) => {
 
 }
 
-const getEnrollmentsUserCtrl = async(req: RequestExt, res: Response) => {
-        try {
-            const userId = req.user?._id;
-                console.log('userId:', userId);
-
-                const userEnrollments = await getEnrollmentsUser(userId);
-                console.log('userEnrollment:', userEnrollments);
-                res.status(200).json({
-                    message: 'User Enrollments retrieved successfully',
-                   
-                    data: userEnrollments,
-                });
-        } catch (error) {
-            console.log(error);
-            handleHttp(res, 'error getting Enrollments for User');
-        }
-     }
+const getEnrollmentsUserCtrl = async (req: RequestExt, res: Response) => {
+    try {
+      const userId = req.params.id; 
+      console.log('userId:', userId);
+  
+      const userEnrollments = await getEnrollmentsUser(userId);
+      console.log('userEnrollment:', userEnrollments);
+      res.status(200).json({
+        message: 'User Enrollments retrieved successfully',
+        data: userEnrollments,
+      });
+    } catch (error) {
+      console.log(error);
+      handleHttp(res, 'error getting Enrollments for User');
+    }
+  };
+  
 
 
 
