@@ -5,6 +5,8 @@ import db from './config/mongo';
 import routes from './routes/index'
 const JWT_SECRET = process.env.JWT_SECRET || "token.02020202"
 import session from 'express-session';
+import cookieSession from 'cookie-session';
+import passport from 'passport';
 
 
 const PORT = process.env.PORT || 3001;
@@ -17,6 +19,17 @@ db();
 app.use(cors({
     origin: '*'
 }))
+
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["key1"],
+    maxAge: 24 * 60 * 60 * 1000, 
+  })
+
+)
+
+app.use(passport.initialize());
 
 
 app.use(
