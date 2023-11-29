@@ -14,4 +14,6 @@ router.get("/session/:id", persistanceLoginCtrl, checkJwt);
 router.use('/tournaments',checkJwt,tournamentRoutes);
 router.use('/users',checkJwt, userRoutes);
 
+
+
 export default router;

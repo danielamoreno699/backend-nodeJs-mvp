@@ -54,4 +54,4 @@ passport.deserializeUser(async function(id, done) {
     }
   });
 
-  export {passport}
+  export { passport as customAuth };

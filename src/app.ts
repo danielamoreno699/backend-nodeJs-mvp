@@ -7,7 +7,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "token.02020202"
 import session from 'express-session';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
-
+import {customAuth} from './utils/passport.handle'
 
 const PORT = process.env.PORT || 3001;
 
@@ -23,7 +23,7 @@ app.use(cors({
 app.use(
   cookieSession({
     name: "session",
-    keys: ["key1"],
+    keys: ["key1", "key2"],
     maxAge: 24 * 60 * 60 * 1000, 
   })
 
