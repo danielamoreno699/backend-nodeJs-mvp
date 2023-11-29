@@ -13,7 +13,8 @@ router.post("/login", loginUserCtrl)
 router.get("/renew", renewTokenCtrl)
 
 router.post("/google", passport.authenticate('google', { scope: ['profile', 'email'] }))
-router.get("/google/callback", passport.authenticate('google', {
+
+router.get("/auth/google/callback", passport.authenticate('google', {
     failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`
   }), (req, res) => {
 

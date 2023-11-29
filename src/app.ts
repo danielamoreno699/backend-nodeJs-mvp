@@ -6,8 +6,10 @@ import routes from './routes/index'
 const JWT_SECRET = process.env.JWT_SECRET || "token.02020202"
 import session from 'express-session';
 import cookieSession from 'cookie-session';
-import passport from 'passport';
 import {customAuth} from './utils/passport.handle'
+import 'dotenv/config';
+
+const GOOGLE_CLIENT_URL = <string>process.env.GOOGLE_CLIENT_URL;
 
 const PORT = process.env.PORT || 3001;
 
@@ -29,7 +31,7 @@ app.use(
 
 )
 
-app.use(passport.initialize());
+app.use(customAuth.initialize());
 
 
 app.use(
@@ -45,6 +47,12 @@ app.use(express.json())
 
 // routes
 app.use('/api', routes);
+
+app.use('/auth/google/callback', customAuth.authenticate('google', {
+  failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`
+}), (req, res) => {
+  res.redirect(GOOGLE_CLIENT_URL);
+});
 
 
 // listen to the server
