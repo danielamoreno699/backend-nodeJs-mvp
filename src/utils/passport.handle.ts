@@ -22,7 +22,10 @@ passport.use(new GoogleStrategy({
             const existingUser = await userModel.findOne({ googleId: profile.id });
 
             if (existingUser) {
-                return cb(null, existingUser);
+                existingUser.name = profile.name?.givenName || '';
+                existingUser.last_name = profile.name?.familyName || '';
+                existingUser.email = profile.emails?.[0]?.value || '';
+                await existingUser.save();
             }
 
             const newUser = new userModel({
