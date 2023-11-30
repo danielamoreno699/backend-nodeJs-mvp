@@ -27,9 +27,9 @@ passport.use(new GoogleStrategy({
 
             const newUser = new userModel({
                 
-                name: profile.name,
-                last_name: profile.name,
-                email: profile.emails?.[0]?.value ?? '',
+                name: profile.name?.givenName || '',
+                last_name: profile.name?.familyName || '',
+                email: profile.emails?.[0]?.value || '',
                 password: profile.id,
                 role: 'user',
             });
