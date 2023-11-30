@@ -13,7 +13,7 @@ const GOOGLE_CLIENT_SECRET = <string>process.env.SECRET_CLIENT;
 passport.use(new GoogleStrategy({
         clientID: GOOGLE_CLIENT_ID,
         clientSecret: GOOGLE_CLIENT_SECRET,
-        callbackURL: "/auth/google/callback",
+        callbackURL: "http://localhost:3002/auth/google/callback",
         passReqToCallback   : true,
         //scope: ['profile', 'email']
     },
@@ -23,7 +23,7 @@ passport.use(new GoogleStrategy({
             const existingUser = await userModel.findOne({ email: profile.emails?.[0]?.value});
 
             if (existingUser) {
-                console.log('user already exists in our DB');
+                console.log('user already exists in our DB', existingUser);
                 return cb(null, existingUser);
             }
 
@@ -32,7 +32,7 @@ passport.use(new GoogleStrategy({
                 name: profile.name?.givenName || '',
                 last_name: profile.name?.familyName || '',
                 email: profile.emails?.[0]?.value || '',
-                password: encrypt(profile.id),
+                password: profile.id,
                 role: 'user',
             });
 

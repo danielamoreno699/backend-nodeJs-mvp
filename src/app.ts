@@ -9,7 +9,7 @@ import cookieSession from 'cookie-session';
 import {customAuth} from './utils/passport.handle'
 import 'dotenv/config';
 
-const GOOGLE_CLIENT_URL = <string>process.env.GOOGLE_CLIENT_URL;
+
 
 const PORT = process.env.PORT || 3001;
 
@@ -40,15 +40,7 @@ app.use(express.json())
 app.use('/api', routes);
 
 
-//google auth
 
-app.use("/auth/google", customAuth.authenticate('google', { scope: ['profile', 'email'] }))
-
-app.use("/auth/google/callback", customAuth.authenticate('google', {
-    successRedirect: `${GOOGLE_CLIENT_URL}`,
-    failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`
-  }));
-  
 
 
 // listen to the server
