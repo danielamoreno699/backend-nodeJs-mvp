@@ -12,14 +12,12 @@ router.post("/register", registerNewUserCtrl)
 router.post("/login", loginUserCtrl)
 router.get("/renew", renewTokenCtrl)
 
-// router.get("/google", passport.authenticate('google', { scope: ['profile', 'email'] }))
+router.get("/google", passport.authenticate('google', { scope: ['profile', 'email'] }))
 
-// router.get("/auth/google/callback", passport.authenticate('google', {
-//     failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`
-//   }), (req, res) => {
-
-//     res.redirect(GOOGLE_CLIENT_URL);
-//   });
+router.post("/auth/google/callback", passport.authenticate('google', {
+    successRedirect: `${GOOGLE_CLIENT_URL}`,
+    failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`
+  }));
   
 
 export default router;

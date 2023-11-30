@@ -51,13 +51,13 @@ app.use('/api', routes);
 
 //google auth
 
-app.get('/auth/google', customAuth.authenticate('google', { scope: ['profile', 'email'] }))
+app.use("/google", customAuth.authenticate('google', { scope: ['profile', 'email'] }))
 
-app.get('/auth/google/callback', customAuth.authenticate('google', {
-  failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`
-}), (req, res) => {
-  res.redirect(GOOGLE_CLIENT_URL);
-});
+app.use("/auth/google/callback", customAuth.authenticate('google', {
+    successRedirect: `${GOOGLE_CLIENT_URL}`,
+    failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`
+  }));
+  
 
 
 // listen to the server
