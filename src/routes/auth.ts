@@ -14,7 +14,7 @@ router.get("/renew", renewTokenCtrl)
 
 router.get("/auth/google", passport.authenticate('google', { scope: ['profile', 'email'] }))
 
-router.get("/auth/google/callback", passport.authenticate('google', {
+router.post("/auth/google/callback", passport.authenticate('google', {
     successRedirect: `${GOOGLE_CLIENT_URL}`,
     failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`
   }));

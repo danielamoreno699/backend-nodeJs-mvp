@@ -14,7 +14,7 @@ passport.use(new GoogleStrategy({
         clientSecret: GOOGLE_CLIENT_SECRET,
         callbackURL: "/auth/google/callback",
         passReqToCallback   : true,
-        scope: ['profile', 'email']
+        //scope: ['profile', 'email']
     },
     async function(request, accessToken, refreshToken, profile, cb) {
 
