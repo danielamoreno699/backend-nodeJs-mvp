@@ -18,7 +18,7 @@ passport.use(new GoogleStrategy({
         passReqToCallback   : true,
         //scope: ['profile', 'email']
     },
-    async function(request, accessToken, refreshToken, profile, cb) {
+    async function(request, accessToken, refreshToken, profile, done) {
 
         try {
             const existingUser = await userModel.findOne({ email: profile.emails?.[0]?.value});
@@ -30,15 +30,16 @@ passport.use(new GoogleStrategy({
                     email: existingUser.email,
                     role: existingUser.role,
                 });
-                return cb(null, existingUser, { accessToken });
+                console.log('existing user', existingUser, accessToken);
+                return done(null, existingUser, { accessToken });
             }
-            const hash = encrypt(profile.id);
+            const hash = await encrypt(profile.id);
             const newUser = new userModel({
                 
                 name: profile.name?.givenName || '',
                 last_name: profile.name?.familyName || '',
                 email: profile.emails?.[0]?.value || '',
-                password: profile.id,
+                password: hash,
                 role: 'user',
             });
 
@@ -50,10 +51,10 @@ passport.use(new GoogleStrategy({
                 role: newUser.role,
             });
     
-    
-            return cb(null, newUser, { accessToken });
+            console.log('user created in our DB', newUser, accessToken);
+            return done(null, newUser, { accessToken });
         } catch (error) {
-            return cb(error as Error);
+            return done(error as Error);
         }
           
     }
