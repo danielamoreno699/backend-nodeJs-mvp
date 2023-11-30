@@ -8,7 +8,7 @@ import session from 'express-session';
 import cookieSession from 'cookie-session';
 import {customAuth} from './utils/passport.handle'
 import 'dotenv/config';
-
+import passport from 'passport';
 
 
 const PORT = process.env.PORT || 3001;
