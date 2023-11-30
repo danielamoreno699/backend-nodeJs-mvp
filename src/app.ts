@@ -33,6 +33,7 @@ app.use(
   );
 
 app.use(customAuth.initialize());
+app.use(customAuth.session());
 
 app.use(express.json())
 

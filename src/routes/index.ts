@@ -28,6 +28,7 @@ router.use("/auth/google", customAuth.authenticate('google', { scope: ['profile'
 router.use("/auth/google/callback", customAuth.authenticate('google', {
     successRedirect: `${GOOGLE_CLIENT_URL}`,
     failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`
+    
   }));
   
 
