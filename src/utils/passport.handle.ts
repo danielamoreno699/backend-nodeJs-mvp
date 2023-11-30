@@ -2,6 +2,7 @@ import 'dotenv/config';
 import userModel from '../model/user';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import passport from 'passport';
+import { encrypt } from './bcrypt.handler';
 
 
 const GOOGLE_CLIENT_ID = <string>process.env.ID_CLIENT;
@@ -31,7 +32,7 @@ passport.use(new GoogleStrategy({
                 name: profile.name?.givenName || '',
                 last_name: profile.name?.familyName || '',
                 email: profile.emails?.[0]?.value || '',
-                password: profile.id,
+                password: encrypt(profile.id),
                 role: 'user',
             });
 
@@ -50,9 +51,9 @@ passport.serializeUser(function(user, done) {
     done(null, user);
 });
 
-passport.deserializeUser(async function(id, done) {
+passport.deserializeUser(async function(_id, done) {
     try {
-      const user = await userModel.findById(id);
+      const user = await userModel.findById(_id);
       done(null, user);
     } catch (error) {
       done(error);

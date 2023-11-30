@@ -22,17 +22,6 @@ app.use(cors({
     origin: '*'
 }))
 
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["key1", "key2"],
-    maxAge: 24 * 60 * 60 * 1000, 
-  })
-
-)
-
-app.use(customAuth.initialize());
-
 
 app.use(
     session({
@@ -42,6 +31,8 @@ app.use(
       cookie: { secure: false }, 
     })
   );
+
+app.use(customAuth.initialize());
 
 app.use(express.json())
 

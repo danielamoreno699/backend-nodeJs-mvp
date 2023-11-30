@@ -45,9 +45,18 @@ const authRole = (role: string) => {
 };
 
 
+const isLogged = (req: RequestExt, res: Response, next: NextFunction) => {
+    if (req.user) {
+        next();
+    } else {
+        res.status(401).send("You are not logged in");
+    }
+}
 
 
-export { checkJwt, authRole };
+
+
+export { checkJwt, authRole, isLogged };
 
 
  
