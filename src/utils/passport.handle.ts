@@ -26,11 +26,12 @@ passport.use(new GoogleStrategy({
             }
 
             const newUser = new userModel({
-                googleId: profile.id,
-                googleName: profile.name,
-                googleLastName: profile.name,
-                googleEmail: profile.emails?.[0]?.value ?? '',
-                googleRole: 'user',
+                
+                name: profile.name,
+                last_name: profile.name,
+                email: profile.emails?.[0]?.value ?? '',
+                password: profile.id,
+                role: 'user',
             });
 
             await newUser.save();
