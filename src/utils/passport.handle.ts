@@ -22,15 +22,17 @@ passport.use(new GoogleStrategy({
             const existingUser = await userModel.findOne({ googleId: profile.id });
 
             if (existingUser) {
-              return cb(null, existingUser);
+                return cb(null, existingUser);
             }
-    
+
             const newUser = new userModel({
-              googleId: profile.id,
-              displayName: profile.name,
-         
+                googleId: profile.id,
+                googleName: profile.name,
+                googleLastName: profile.name,
+                googleEmail: profile.emails?.[0]?.value ?? '',
+                googleRole: 'user',
             });
-    
+
             await newUser.save();
     
     

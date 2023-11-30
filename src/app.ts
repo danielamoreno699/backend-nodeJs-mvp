@@ -48,7 +48,12 @@ app.use(express.json())
 // routes
 app.use('/api', routes);
 
-app.use('/auth/google/callback', customAuth.authenticate('google', {
+
+//google auth
+
+app.get('/auth/google', customAuth.authenticate('google', { scope: ['profile', 'email'] }))
+
+app.get('/auth/google/callback', customAuth.authenticate('google', {
   failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`
 }), (req, res) => {
   res.redirect(GOOGLE_CLIENT_URL);
