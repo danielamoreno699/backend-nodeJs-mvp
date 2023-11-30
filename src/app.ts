@@ -51,7 +51,7 @@ app.use('/api', routes);
 
 //google auth
 
-app.use("/google", customAuth.authenticate('google', { scope: ['profile', 'email'] }))
+app.use("/auth/google", customAuth.authenticate('google', { scope: ['profile', 'email'] }))
 
 app.use("/auth/google/callback", customAuth.authenticate('google', {
     successRedirect: `${GOOGLE_CLIENT_URL}`,
