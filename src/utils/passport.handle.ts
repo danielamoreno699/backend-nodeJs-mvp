@@ -19,13 +19,11 @@ passport.use(new GoogleStrategy({
     async function(request, accessToken, refreshToken, profile, cb) {
 
         try {
-            const existingUser = await userModel.findOne({ googleId: profile.id });
+            const existingUser = await userModel.findOne({ email: profile.emails?.[0]?.value});
 
             if (existingUser) {
-                existingUser.name = profile.name?.givenName || '';
-                existingUser.last_name = profile.name?.familyName || '';
-                existingUser.email = profile.emails?.[0]?.value || '';
-                await existingUser.save();
+                console.log('user already exists in our DB');
+                return cb(null, existingUser);
             }
 
             const newUser = new userModel({
