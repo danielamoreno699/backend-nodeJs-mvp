@@ -75,6 +75,9 @@ passport.deserializeUser(function (user, done) {
     done(null, user as User);
 });
 
+
+export default passport;
+
 // passport.deserializeUser(async function(_id, done) {
 //     try {
 //       const user = await userModel.findById(_id);
