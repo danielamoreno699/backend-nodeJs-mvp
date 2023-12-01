@@ -17,10 +17,12 @@ passport.use(new GoogleStrategy({
         clientSecret: GOOGLE_CLIENT_SECRET,
         callbackURL: "http://localhost:3002/api/auth/google/callback",
         passReqToCallback   : true,
-        //scope: ['profile', 'email']
+        scope: ['profile', 'email'],
+       
+       
     },
     async function(request, accessToken, refreshToken, profile, done) {
-
+        //return done(null, profile);
         try {
             const existingUser = await userModel.findOne({ email: profile.emails?.[0]?.value});
 
