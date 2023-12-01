@@ -33,6 +33,13 @@ passport.use(new GoogleStrategy({
                     email: existingUser.email,
                     role: existingUser.role,
                 });
+
+                // Set user in localStorage
+              localStorage.setItem('user', JSON.stringify({
+                _id: existingUser._id.toString(),
+                email: existingUser.email,
+                role: existingUser.role,
+            }));
                 console.log('user:', existingUser);
                 console.log('info:', { accessToken });
                 console.log('Done callback called.');
