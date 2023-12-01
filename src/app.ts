@@ -5,9 +5,9 @@ import db from './config/mongo';
 import routes from './routes/index'
 const JWT_SECRET = process.env.JWT_SECRET || "token.02020202"
 import session from 'express-session';
-import './utils/passport.handle';
+import passport from './utils/passport.handle';
 import 'dotenv/config';
-import passport from 'passport';
+//import passport from 'passport';
 
 
 const PORT = process.env.PORT || 3001;
@@ -32,7 +32,7 @@ app.use(
   );
 
 app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.session());
 
 app.use(express.json())
 
