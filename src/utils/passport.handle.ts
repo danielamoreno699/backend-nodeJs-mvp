@@ -34,17 +34,19 @@ passport.use(new GoogleStrategy({
                     role: existingUser.role,
                 });
 
+                const userResponse = {
+                    _id: existingUser._id.toString(),
+                    email: existingUser.email,
+                    role: existingUser.role,
+                };
+
                 // Set user in localStorage
-              localStorage.setItem('user', JSON.stringify({
-                _id: existingUser._id.toString(),
-                email: existingUser.email,
-                role: existingUser.role,
-            }));
+             
                 console.log('user:', existingUser);
                 console.log('info:', { accessToken });
                 console.log('Done callback called.');
                 
-                return done(null, existingUser,  {accessToken} );
+                return done(null, existingUser,  {userResponse, accessToken} );
             }
             const hash = await encrypt(profile.id);
             const newUser = new userModel({
