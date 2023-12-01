@@ -5,8 +5,7 @@ import db from './config/mongo';
 import routes from './routes/index'
 const JWT_SECRET = process.env.JWT_SECRET || "token.02020202"
 import session from 'express-session';
-import cookieSession from 'cookie-session';
-import {customAuth} from './utils/passport.handle'
+import './utils/passport.handle';
 import 'dotenv/config';
 import passport from 'passport';
 
@@ -32,8 +31,8 @@ app.use(
     })
   );
 
-app.use(customAuth.initialize());
-app.use(customAuth.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.json())
 

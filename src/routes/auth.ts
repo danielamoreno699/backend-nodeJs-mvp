@@ -14,24 +14,10 @@ router.get("/renew", renewTokenCtrl)
 
 router.get("/auth/google", passport.authenticate('google', { scope: ['profile', 'email'] }))
 
-// router.get("/auth/google/callback", passport.authenticate('google', {
-//     successRedirect: `${GOOGLE_CLIENT_URL}`,
-//     failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`
-//   }));
-router.get(
-    '/auth/google/callback',
-    passport.authenticate('google', {
-      successRedirect: `${GOOGLE_CLIENT_URL}`,
-      failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`,
-    }),
-    (req, res, next) => {
-      console.log('req.user:', req.user);
-      console.log('req.session:', req.session);
-  
-      // Ensure you call next() to proceed with the next middleware
-      next();
-    }
-  );
+router.get("/auth/google/callback", passport.authenticate('google', {
+    successRedirect: `${GOOGLE_CLIENT_URL}`,
+    failureRedirect: `${GOOGLE_CLIENT_URL}/auth/login`
+  }));
 
 
 export default router;

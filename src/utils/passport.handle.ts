@@ -84,4 +84,3 @@ passport.deserializeUser(function (user, done) {
 //     }
 //   });
 
-  export { passport as customAuth };
